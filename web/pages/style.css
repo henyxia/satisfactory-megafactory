@@ -1,0 +1,28 @@
+.breadcrumb {
+    margin-bottom: 30px;
+}
+
+.tag {
+    text-transform: capitalize;
+}
+
+.container {
+    margin-bottom: 35px;
+}
+
+dt {
+    float: left;
+    clear: left;
+    margin-right: 30px;
+    width: 160px;
+    text-align: right;
+}
+
+dd {
+    margin-left: 0px;
+}
+
+.material-symbols-outlined {
+    vertical-align: bottom;
+    margin-right: 5px;
+}

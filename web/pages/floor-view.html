@@ -1,0 +1,63 @@
+{{ template "top" }}
+<div class="container">
+    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/">Overview</a></li>
+            <li class="is-active"><a href="{{ .floor.URLView }}" aria-current="page">{{ .floor.BreadcrumbName }}</a></li>
+        </ul>
+      </nav>
+      <hr />
+</div>
+<div class="container">
+    <h2 class="title">{{ .floor.Name }}</h2>
+    <h3 class="subtitle">Details view of level {{ .floor.ID }}</h3>
+    <div class="block">
+        Building type: <span class="tag {{ .floor.TypeUIClass }}">{{ .floor.Type }}</span> | Construction status: <span class="tag {{ .floor.StatusUIClass }}">{{ .floor.Status }}</span>
+    </div>
+</div>
+
+<div class="container">
+    {{ range $line := .floor.ProductionLines }}
+    <div class="block">
+        <h3 class="subtitle" style="text-decoration: underline;">Production Line {{ $line.Number }}</h3>
+        <div>
+            <dl>
+                <dt>Source</dt>
+                <dd>Unknown</dd>
+                <dt>Input Port</dt>
+                <dd>
+                    {{ if not $line.PortInput }}
+                    <span class="tag tag-large is-warning">Disconnected</span>
+                    {{ else }}
+                    <div class="tags has-addons">
+                        <span class="tag is-success">Connected</span>
+                        <span class="tag">{{ $line.PortInput }}</span>
+                    </div>
+                    {{ end }}
+                </dd>
+                <dt>Recipe</dt>
+                <dd>Iron Ingot</dd>
+                <dt>Output Port</dt>
+                <dd>
+                    {{ if not $line.PortOutput }}
+                    <span class="tag is-warning">Disconnected</span>
+                    {{ else }}
+                    <div class="tags has-addons">
+                        <span class="tag is-success">Connected</span>
+                        <span class="tag">{{ $line.PortOutput }}</span>
+                    </div>
+                    {{ end }}
+                </dd>
+                <dt>Destination</dt>
+                <dd>Unknown</dd>
+            </dl>
+        </div>
+    </div>
+    {{ end }}
+</div>
+
+<div class="container">
+    <hr />
+    <div class="notification is-success is-light" style="text-align: center;">Add a new production line</div>
+</div>
+{{ template "bottom" }}

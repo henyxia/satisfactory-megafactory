@@ -1,0 +1,39 @@
+{{ template "top" }}
+<div class="container">
+  <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+      <ul>
+          <li class="is-active"><a href="/">Overview</a></li>
+      </ul>
+    </nav>
+    <hr />
+</div>
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>Level</th>
+      <th>Status</th>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Input</th>
+      <th>Output</th>
+    </thead>
+    <tbody>
+      {{ range $floor := .floors }}
+      <tr>
+        <td><a href="/floor/{{ $floor.ID }}">{{ $floor.ID }}</a></td>
+        <td><span class="tag {{ $floor.StatusUIClass }}">{{ $floor.Status }}</td>
+        <td><span class="tag {{ $floor.TypeUIClass }}">{{ $floor.Type }}</td>
+        <td>{{ $floor.Name }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      {{ end }}
+      <tr>
+        <td colspan="6" style="text-align: center">
+          <button class="button is-link"><span class="material-symbols-outlined">add_circle</span> Add level</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{{ template "bottom" }}
