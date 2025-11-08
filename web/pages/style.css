@@ -26,3 +26,12 @@ dd {
     vertical-align: bottom;
     margin-right: 5px;
 }
+
+.navbar {
+    background-color: #303030;
+}
+
+.navbar-item {
+    color: #acacac;
+    font-weight: bold;
+}
