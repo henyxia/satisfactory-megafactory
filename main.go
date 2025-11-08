@@ -27,7 +27,10 @@ func (cfg *config) migrateDB() error {
 		models.Floor{},
 		models.ProductionLine{},
 		models.Port{},
+		models.Item{},
 	)
+
+	cfg.setData()
 
 	return nil
 }
@@ -105,5 +108,6 @@ func main() {
 	router.GET("/", ui.Index)
 	router.GET("/floor/:id", ui.FloorView)
 	router.GET("/floor/:id/plan", ui.FloorPlan)
+	router.GET("/item", ui.ItemList)
 	router.Run()
 }
