@@ -155,159 +155,171 @@ func (cfg *config) setData() {
 	itemBiochemicalSculptor := &models.Item{ID: 149, Name: "Biochemical Sculptor", Type: models.ItemTypeItem}
 	itemBallisticWarpDrive := &models.Item{ID: 150, Name: "Ballistic Warp Drive", Type: models.ItemTypeItem}
 	itemAIExpansionServer := &models.Item{ID: 151, Name: "AI Expansion Server", Type: models.ItemTypeItem}
+	itemPortableMiner := &models.Item{ID: 152, Name: "Portable Miner", Type: models.ItemTypeItem}
+	itemHatcherProtein := &models.Item{ID: 153, Name: "Hatcher Protein", Type: models.ItemTypeItem}
+	itemHogProtein := &models.Item{ID: 154, Name: "Hog Protein", Type: models.ItemTypeItem}
+	itemSpitterProtein := &models.Item{ID: 155, Name: "Spitter Protein", Type: models.ItemTypeItem}
+	itemStingerProtein := &models.Item{ID: 156, Name: "Stinger Protein", Type: models.ItemTypeItem}
 
 	// add items in list
-	items = append(items, itemLimestone)
-	items = append(items, itemIronOre)
-	items = append(items, itemCopperOre)
-	items = append(items, itemCateriumOre)
-	items = append(items, itemCoal)
-	items = append(items, itemRawQuartz)
-	items = append(items, itemSulfur)
-	items = append(items, itemBauxite)
-	items = append(items, itemSAM)
-	items = append(items, itemUranium)
-	items = append(items, itemIronIngot)
-	items = append(items, itemCopperIngot)
-	items = append(items, itemCateriumIngot)
-	items = append(items, itemSteelIngot)
-	items = append(items, itemAluminumIngot)
-	items = append(items, itemFicsiteIngot)
-	items = append(items, itemConcrete)
-	items = append(items, itemQuartzCrystal)
-	items = append(items, itemSilica)
-	items = append(items, itemCopperPowder)
-	items = append(items, itemPolymerResin)
-	items = append(items, itemPetroleumCoke)
-	items = append(items, itemAluminumScrap)
-	items = append(items, itemAlienProtein)
-	items = append(items, itemAlienDNACapsule)
-	items = append(items, itemWater)
-	items = append(items, itemCrudeOil)
-	items = append(items, itemHeavyOilResidue)
-	items = append(items, itemFuel)
-	items = append(items, itemLiquidBiofuel)
-	items = append(items, itemTurbofuel)
-	items = append(items, itemAluminaSolution)
-	items = append(items, itemSulfuricAcid)
-	items = append(items, itemNitricAcid)
-	items = append(items, itemDissolvedSilica)
-	items = append(items, itemNitrogenGas)
-	items = append(items, itemRocketFuel)
-	items = append(items, itemIonizedFuel)
-	items = append(items, itemDarkMatterResidue)
-	items = append(items, itemExcitedPhotonicMatter)
-	items = append(items, itemIronRod)
-	items = append(items, itemScrews)
-	items = append(items, itemIronPlate)
-	items = append(items, itemReinforcedIronPlate)
-	items = append(items, itemCopperSheet)
-	items = append(items, itemAlcladAluminumSheet)
-	items = append(items, itemAluminumCasing)
-	items = append(items, itemSteelPipe)
-	items = append(items, itemSteelBeam)
-	items = append(items, itemEncasedIndustrialBeam)
-	items = append(items, itemModularFrame)
-	items = append(items, itemHeavyModularFrame)
-	items = append(items, itemFusedModularFrame)
-	items = append(items, itemFicsiteTrigon)
-	items = append(items, itemFabric)
-	items = append(items, itemPlastic)
-	items = append(items, itemRubber)
-	items = append(items, itemRotor)
-	items = append(items, itemStator)
-	items = append(items, itemBattery)
-	items = append(items, itemMotor)
-	items = append(items, itemHeatSink)
-	items = append(items, itemCoolingSystem)
-	items = append(items, itemTurboMotor)
-	items = append(items, itemWire)
-	items = append(items, itemCable)
-	items = append(items, itemQuickwire)
-	items = append(items, itemCircuitBoard)
-	items = append(items, itemAILimiter)
-	items = append(items, itemHighSpeedConnector)
-	items = append(items, itemReanimatedSAM)
-	items = append(items, itemSAMFluctuator)
-	items = append(items, itemComputer)
-	items = append(items, itemSupercomputer)
-	items = append(items, itemRadioControlUnit)
-	items = append(items, itemCrystalOscillator)
-	items = append(items, itemSuperpositionOscillator)
-	items = append(items, itemDiamonds)
-	items = append(items, itemTimeCrystal)
-	items = append(items, itemDarkMatterCrystal)
-	items = append(items, itemSingularityCell)
-	items = append(items, itemNeuralQuantumProcessor)
-	items = append(items, itemAlienPowerMatrix)
-	items = append(items, itemEmptyCanister)
-	items = append(items, itemEmptyFluidTank)
-	items = append(items, itemPressureConversionCube)
-	items = append(items, itemPackagedWater)
-	items = append(items, itemPackagedAluminaSolution)
-	items = append(items, itemPackagedSulfuricAcid)
-	items = append(items, itemPackagedNitricAcid)
-	items = append(items, itemPackagedNitrogenGas)
-	items = append(items, itemLeaves)
-	items = append(items, itemMycelia)
-	items = append(items, itemFlowerPetals)
-	items = append(items, itemWood)
-	items = append(items, itemBiomass)
-	items = append(items, itemCompactedCoal)
-	items = append(items, itemPackagedOil)
-	items = append(items, itemPackagedHeavyOilResidue)
-	items = append(items, itemSolidBiofuel)
-	items = append(items, itemPackagedFuel)
-	items = append(items, itemPackagedLiquidBiofuel)
-	items = append(items, itemPackagedTurbofuel)
-	items = append(items, itemPackagedRocketFuel)
-	items = append(items, itemPackagedIonizedFuel)
-	items = append(items, itemUraniumFuelRod)
-	items = append(items, itemPlutoniumFuelRod)
-	items = append(items, itemBlackPowder)
-	items = append(items, itemSmokelessPowder)
-	items = append(items, itemGasFilter)
-	items = append(items, itemColorCartridge)
-	items = append(items, itemBeacon)
-	items = append(items, itemIodineInfusedFilter)
-	items = append(items, itemIronRebar)
-	items = append(items, itemStunRebar)
-	items = append(items, itemShatterRebar)
-	items = append(items, itemExplosiveRebar)
-	items = append(items, itemRifleAmmo)
-	items = append(items, itemHomingRifleAmmo)
-	items = append(items, itemTurboRifleAmmo)
-	items = append(items, itemNobelisk)
-	items = append(items, itemGasNobelisk)
-	items = append(items, itemPulseNobelisk)
-	items = append(items, itemClusterNobelisk)
-	items = append(items, itemNukeNobelisk)
-	items = append(items, itemElectromagneticControlRod)
-	items = append(items, itemEncasedUraniumCell)
-	items = append(items, itemNonFissileUranium)
-	items = append(items, itemPlutoniumPellet)
-	items = append(items, itemEncasedPlutoniumCell)
-	items = append(items, itemFicsonium)
-	items = append(items, itemFicsoniumFuelRod)
-	items = append(items, itemUraniumWaste)
-	items = append(items, itemPlutoniumWaste)
-	items = append(items, itemBluePowerSlug)
-	items = append(items, itemYellowPowerSlug)
-	items = append(items, itemPurplePowerSlug)
-	items = append(items, itemPowerShard)
-	items = append(items, itemFICSITCoupon)
-	items = append(items, itemSmartPlating)
-	items = append(items, itemVersatileFramework)
-	items = append(items, itemAutomatedWiring)
-	items = append(items, itemModularEngine)
-	items = append(items, itemAdaptiveControlUnit)
-	items = append(items, itemAssemblyDirectorSystem)
-	items = append(items, itemMagneticFieldGenerator)
-	items = append(items, itemThermalPropulsionRocket)
-	items = append(items, itemNuclearPasta)
-	items = append(items, itemBiochemicalSculptor)
-	items = append(items, itemBallisticWarpDrive)
-	items = append(items, itemAIExpansionServer)
+	items = append(items,
+		itemLimestone,
+		itemIronOre,
+		itemCopperOre,
+		itemCateriumOre,
+		itemCoal,
+		itemRawQuartz,
+		itemSulfur,
+		itemBauxite,
+		itemSAM,
+		itemUranium,
+		itemIronIngot,
+		itemCopperIngot,
+		itemCateriumIngot,
+		itemSteelIngot,
+		itemAluminumIngot,
+		itemFicsiteIngot,
+		itemConcrete,
+		itemQuartzCrystal,
+		itemSilica,
+		itemCopperPowder,
+		itemPolymerResin,
+		itemPetroleumCoke,
+		itemAluminumScrap,
+		itemAlienProtein,
+		itemAlienDNACapsule,
+		itemWater,
+		itemCrudeOil,
+		itemHeavyOilResidue,
+		itemFuel,
+		itemLiquidBiofuel,
+		itemTurbofuel,
+		itemAluminaSolution,
+		itemSulfuricAcid,
+		itemNitricAcid,
+		itemDissolvedSilica,
+		itemNitrogenGas,
+		itemRocketFuel,
+		itemIonizedFuel,
+		itemDarkMatterResidue,
+		itemExcitedPhotonicMatter,
+		itemIronRod,
+		itemScrews,
+		itemIronPlate,
+		itemReinforcedIronPlate,
+		itemCopperSheet,
+		itemAlcladAluminumSheet,
+		itemAluminumCasing,
+		itemSteelPipe,
+		itemSteelBeam,
+		itemEncasedIndustrialBeam,
+		itemModularFrame,
+		itemHeavyModularFrame,
+		itemFusedModularFrame,
+		itemFicsiteTrigon,
+		itemFabric,
+		itemPlastic,
+		itemRubber,
+		itemRotor,
+		itemStator,
+		itemBattery,
+		itemMotor,
+		itemHeatSink,
+		itemCoolingSystem,
+		itemTurboMotor,
+		itemWire,
+		itemCable,
+		itemQuickwire,
+		itemCircuitBoard,
+		itemAILimiter,
+		itemHighSpeedConnector,
+		itemReanimatedSAM,
+		itemSAMFluctuator,
+		itemComputer,
+		itemSupercomputer,
+		itemRadioControlUnit,
+		itemCrystalOscillator,
+		itemSuperpositionOscillator,
+		itemDiamonds,
+		itemTimeCrystal,
+		itemDarkMatterCrystal,
+		itemSingularityCell,
+		itemNeuralQuantumProcessor,
+		itemAlienPowerMatrix,
+		itemEmptyCanister,
+		itemEmptyFluidTank,
+		itemPressureConversionCube,
+		itemPackagedWater,
+		itemPackagedAluminaSolution,
+		itemPackagedSulfuricAcid,
+		itemPackagedNitricAcid,
+		itemPackagedNitrogenGas,
+		itemLeaves,
+		itemMycelia,
+		itemFlowerPetals,
+		itemWood,
+		itemBiomass,
+		itemCompactedCoal,
+		itemPackagedOil,
+		itemPackagedHeavyOilResidue,
+		itemSolidBiofuel,
+		itemPackagedFuel,
+		itemPackagedLiquidBiofuel,
+		itemPackagedTurbofuel,
+		itemPackagedRocketFuel,
+		itemPackagedIonizedFuel,
+		itemUraniumFuelRod,
+		itemPlutoniumFuelRod,
+		itemBlackPowder,
+		itemSmokelessPowder,
+		itemGasFilter,
+		itemColorCartridge,
+		itemBeacon,
+		itemIodineInfusedFilter,
+		itemIronRebar,
+		itemStunRebar,
+		itemShatterRebar,
+		itemExplosiveRebar,
+		itemRifleAmmo,
+		itemHomingRifleAmmo,
+		itemTurboRifleAmmo,
+		itemNobelisk,
+		itemGasNobelisk,
+		itemPulseNobelisk,
+		itemClusterNobelisk,
+		itemNukeNobelisk,
+		itemElectromagneticControlRod,
+		itemEncasedUraniumCell,
+		itemNonFissileUranium,
+		itemPlutoniumPellet,
+		itemEncasedPlutoniumCell,
+		itemFicsonium,
+		itemFicsoniumFuelRod,
+		itemUraniumWaste,
+		itemPlutoniumWaste,
+		itemBluePowerSlug,
+		itemYellowPowerSlug,
+		itemPurplePowerSlug,
+		itemPowerShard,
+		itemFICSITCoupon,
+		itemSmartPlating,
+		itemVersatileFramework,
+		itemAutomatedWiring,
+		itemModularEngine,
+		itemAdaptiveControlUnit,
+		itemAssemblyDirectorSystem,
+		itemMagneticFieldGenerator,
+		itemThermalPropulsionRocket,
+		itemNuclearPasta,
+		itemBiochemicalSculptor,
+		itemBallisticWarpDrive,
+		itemAIExpansionServer,
+		itemPortableMiner,
+		itemHatcherProtein,
+		itemHogProtein,
+		itemSpitterProtein,
+		itemStingerProtein,
+	)
 
 	cfg.DB.Save(items)
 }
