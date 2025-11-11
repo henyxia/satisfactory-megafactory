@@ -7,6 +7,16 @@ import (
 	"github.com/henyxia/satisfactory-megafactory/internal/models"
 )
 
+func (u *UI) FactoryList(g *gin.Context) {
+	var factories []models.Factory
+
+	u.db.Find(&factories)
+
+	g.HTML(http.StatusOK, "pages/factory-list.html", gin.H{
+		"factories": factories,
+	})
+}
+
 func (u *UI) FactoryView(g *gin.Context) {
 	factory := &models.Factory{}
 

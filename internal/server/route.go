@@ -15,7 +15,7 @@ func (s *Server) setupRoutes() {
 	ui := _ui.New(s.DB)
 
 	// ui routes
-	s.router.GET("/", ui.Index)
+	s.router.GET("/", ui.FactoryList)
 	s.router.GET("/factory/:id", ui.FactoryView)
 	s.router.GET("/floor/:id", ui.FloorView)
 	s.router.GET("/floor/:id/plan", ui.FloorPlan)
