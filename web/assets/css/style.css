@@ -16,6 +16,7 @@ dt {
     margin-right: 30px;
     width: 160px;
     text-align: right;
+    font-weight: bold;
 }
 
 dd {
@@ -38,4 +39,8 @@ dd {
 
 .card {
     width: 100%;
+}
+
+.btn {
+    cursor: pointer;
 }

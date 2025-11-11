@@ -41,6 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function showModal(elem) {
+  e = document.getElementById('modal-'+elem);
+  e.classList.add('is-active');
+}
+
 function getInputValue(element) {
   e = document.getElementById(element);
   return e.value;

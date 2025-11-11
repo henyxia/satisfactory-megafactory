@@ -10,11 +10,13 @@ func (s *Server) setupRoutes() {
 
 	// api routes
 	s.router.POST("/api/factory", api.FactoryNew)
+	s.router.DELETE("/api/factory/:id", api.FactoryDelete)
 
 	ui := _ui.New(s.DB)
 
 	// ui routes
 	s.router.GET("/", ui.Index)
+	s.router.GET("/factory/:id", ui.FactoryView)
 	s.router.GET("/floor/:id", ui.FloorView)
 	s.router.GET("/floor/:id/plan", ui.FloorPlan)
 	s.router.GET("/item", ui.ItemList)

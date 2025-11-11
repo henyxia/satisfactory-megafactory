@@ -7,4 +7,5 @@ type Factory struct {
 	IOEast  uint   `json:"io_east"`
 	IOSouth uint   `json:"io_south"`
 	IOWest  uint   `json:"io_west"`
+	Floors  []Floor
 }

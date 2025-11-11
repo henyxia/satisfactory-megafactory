@@ -13,8 +13,8 @@
       {{ range $factory := .factories }}
       {{ template "shards/factory-overview.html" $factory }}
       {{ end }}
-      <div class="card has-background-primary-light">
-        <div class="card-content">
+      <div class="card has-background-primary-light is-flex">
+        <div class="card-content" style="width: 100%;">
           <div class="media">
             <div class="media-content">
               <button class="button is-primary is-light js-modal-trigger" data-target="modal-factory-new" style="display: block; margin: auto;">Create a new factory</button>

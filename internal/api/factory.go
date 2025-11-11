@@ -24,3 +24,28 @@ func (a *API) FactoryNew(g *gin.Context) {
 
 	g.JSON(http.StatusAccepted, gin.H{})
 }
+
+func (a *API) FactoryDelete(g *gin.Context) {
+	factory := &models.Factory{}
+
+	err := g.ShouldBindUri(factory)
+	if err != nil {
+		a.ErrNotFound(g)
+		return
+	}
+
+	result := a.db.First(factory)
+
+	if result.RowsAffected < 1 {
+		a.ErrNotFound(g)
+		return
+	}
+
+	err = a.db.Delete(&factory).Error
+	if err != nil {
+		g.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	g.JSON(http.StatusAccepted, gin.H{})
+}

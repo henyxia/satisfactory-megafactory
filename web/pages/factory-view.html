@@ -1,0 +1,94 @@
+{{ template "shards/common-top.html" }}
+<div class="container">
+    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/">Overview</a></li>
+            <li class="is-active"><a>Factory: {{ .factory.Name }}</a></li>
+        </ul>
+      </nav>
+      <hr />
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content" style="display: flex; justify-content: space-between;">
+                    <p class="title is-4">{{ .factory.Name }}</p>
+                    <div>
+                        <span class="material-symbols-outlined has-text-danger btn" onclick="showModal('factory-delete');">delete</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <dl>
+                    <dt>Floors</dt>
+                    <dd>{{ len .factory.Floors }}</dd>
+                    <dt>Production lines</dt>
+                    <dd>{{ .productionLineCount }}</dd>
+                    <dt>IO North</dt>
+                    <dd>{{ .factory.IONorth }}</dd>
+                    <dt>IO East</dt>
+                    <dd>{{ .factory.IOEast }}</dd>
+                    <dt>IO South</dt>
+                    <dd>{{ .factory.IOSouth }}</dd>
+                    <dt>IO West</dt>
+                    <dd>{{ .factory.IOWest }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+      <thead>
+        <th>Level</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Input</th>
+        <th>Output</th>
+      </thead>
+      <tbody>
+        {{ range $floor := .factory.Floors }}
+        <tr>
+          <td><a href="/floor/{{ $floor.ID }}">{{ $floor.ID }}</a></td>
+          <td><span class="tag {{ $floor.StatusUIClass }}">{{ $floor.Status }}</td>
+          <td><span class="tag {{ $floor.TypeUIClass }}">{{ $floor.Type }}</td>
+          <td>{{ $floor.Name }}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        {{ end }}
+        <tr>
+          <td colspan="6" style="text-align: center">
+            <button class="button is-link"><span class="material-symbols-outlined">add_circle</span> Add level</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<!-- delete factory modal -->
+<div id="modal-factory-delete" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Delete a factory</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p>Are you sure to want to delete factory {{ .factory.Name }} ?</p>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-danger" onclick="modalFactoryDelete_Send({{ .factory.ID }});">Delete factory</button>
+          <button class="button button-exit">Cancel</button>
+        </div>
+      </footer>
+    </div>
+</div>
+
+<script type="text/javascript" src="/assets/js/factory-view.js"></script>
+
+{{ template "shards/common-bottom.html" }}
