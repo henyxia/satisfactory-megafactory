@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/henyxia/satisfactory-megafactory/models"
+	"github.com/henyxia/satisfactory-megafactory/internal/models"
 )
 
 func (s *Server) setData() error {

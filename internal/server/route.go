@@ -1,8 +1,8 @@
 package server
 
 import (
-	_api "github.com/henyxia/satisfactory-megafactory/api"
-	_ui "github.com/henyxia/satisfactory-megafactory/ui"
+	_api "github.com/henyxia/satisfactory-megafactory/internal/api"
+	_ui "github.com/henyxia/satisfactory-megafactory/internal/ui"
 )
 
 func (s *Server) setupRoutes() {

@@ -1,6 +1,6 @@
 package server
 
-import "github.com/henyxia/satisfactory-megafactory/models"
+import "github.com/henyxia/satisfactory-megafactory/internal/models"
 
 func (s *Server) migrateDB() error {
 	s.DB.AutoMigrate(

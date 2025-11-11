@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/henyxia/satisfactory-megafactory/models"
+	"github.com/henyxia/satisfactory-megafactory/internal/models"
 )
 
 func (u *UI) RecipeList(g *gin.Context) {

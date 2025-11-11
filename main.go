@@ -7,7 +7,7 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/henyxia/satisfactory-megafactory/server"
+	"github.com/henyxia/satisfactory-megafactory/internal/server"
 )
 
 //go:embed web

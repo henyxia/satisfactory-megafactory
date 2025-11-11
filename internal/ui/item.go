@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/henyxia/satisfactory-megafactory/models"
+	"github.com/henyxia/satisfactory-megafactory/internal/models"
 )
 
 func (u *UI) ItemList(g *gin.Context) {
