@@ -26,7 +26,7 @@ func (u *UI) FloorView(g *gin.Context) {
 		return
 	}
 
-	g.HTML(http.StatusOK, "floor-view.html", gin.H{
+	g.HTML(http.StatusOK, "pages/floor-view.html", gin.H{
 		"floor": floor,
 	})
 }

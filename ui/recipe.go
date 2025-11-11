@@ -12,7 +12,7 @@ func (u *UI) RecipeList(g *gin.Context) {
 
 	u.db.Preload("Input.Item").Preload("Output.Item").Preload("ProducedIn").Find(&recipes)
 
-	g.HTML(http.StatusOK, "recipe-list.html", gin.H{
+	g.HTML(http.StatusOK, "pages/recipe-list.html", gin.H{
 		"recipes": recipes,
 	})
 }

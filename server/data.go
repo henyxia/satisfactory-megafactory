@@ -1,12 +1,10 @@
-package main
+package server
 
 import (
-	"fmt"
-
 	"github.com/henyxia/satisfactory-megafactory/models"
 )
 
-func (cfg *config) setData() {
+func (s *Server) setData() error {
 	var buildings []models.Building
 	buildingAssember := models.Building{ID: 1, Name: "Assember"}
 	buildingBlender := models.Building{ID: 2, Name: "Blender"}
@@ -35,7 +33,10 @@ func (cfg *config) setData() {
 		buildingSmelter,
 	)
 
-	cfg.DB.Save(buildings)
+	err := s.DB.Save(buildings).Error
+	if err != nil {
+		return err
+	}
 
 	var items []*models.Item
 	itemLimestone := &models.Item{ID: 1, Name: "Limestone", Type: models.ItemTypeItem}
@@ -355,7 +356,10 @@ func (cfg *config) setData() {
 		itemStingerProtein,
 	)
 
-	cfg.DB.Save(items)
+	err = s.DB.Save(items).Error
+	if err != nil {
+		return err
+	}
 
 	recipes := []models.Recipe{
 		{Slug: "adaptive_control_unit", Name: "Adaptive Control Unit", Duration: 600, ProducedIn: buildingManufacurer, Input: []models.RecipeInput{{Item: *itemAutomatedWiring, Qt: 50}, {Item: *itemCircuitBoard, Qt: 50}, {Item: *itemHeavyModularFrame, Qt: 10}, {Item: *itemComputer, Qt: 20}}, Output: []models.RecipeOutput{{Item: *itemAdaptiveControlUnit, Qt: 10}}},
@@ -637,9 +641,10 @@ func (cfg *config) setData() {
 		{Slug: "wet_concrete", Name: "Wet Concrete", Duration: 30, ProducedIn: buildingRefinery, Input: []models.RecipeInput{{Item: *itemLimestone, Qt: 60}, {Item: *itemWater, Qt: 50}}, Output: []models.RecipeOutput{{Item: *itemConcrete, Qt: 40}}},
 		{Slug: "wire", Name: "Wire", Duration: 40, ProducedIn: buildingConstructor, Input: []models.RecipeInput{{Item: *itemCopperIngot, Qt: 10}}, Output: []models.RecipeOutput{{Item: *itemWire, Qt: 20}}},
 	}
-	err := cfg.DB.Save(&recipes).Error
+	err = s.DB.Save(&recipes).Error
 	if err != nil {
-		fmt.Printf("err: %s\n", err.Error())
-		return
+		return err
 	}
+
+	return nil
 }

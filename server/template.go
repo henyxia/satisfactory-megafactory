@@ -1,4 +1,6 @@
-package ui
+package server
+
+import "html/template"
 
 func Mul(param1 int, param2 int) int {
 	return param1 * param2
@@ -26,4 +28,16 @@ func Minus(p1, p2 int) int {
 
 func Div(p1, p2 uint) float32 {
 	return float32(p1) / float32(p2)
+}
+
+func (s *Server) customTemplateFunctions() {
+	s.router.SetFuncMap(template.FuncMap{
+		"mul":   Mul,
+		"add":   Add,
+		"add3":  Add3,
+		"add4":  Add4,
+		"add5":  Add5,
+		"minus": Minus,
+		"div":   Div,
+	})
 }

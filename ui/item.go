@@ -13,7 +13,7 @@ func (u *UI) ItemList(g *gin.Context) {
 
 	u.db.Find(&items)
 
-	g.HTML(http.StatusOK, "item-list.html", gin.H{
+	g.HTML(http.StatusOK, "pages/item-list.html", gin.H{
 		"items": items,
 	})
 }
