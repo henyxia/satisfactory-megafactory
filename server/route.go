@@ -1,10 +1,16 @@
 package server
 
 import (
+	_api "github.com/henyxia/satisfactory-megafactory/api"
 	_ui "github.com/henyxia/satisfactory-megafactory/ui"
 )
 
 func (s *Server) setupRoutes() {
+	api := _api.New(s.DB)
+
+	// api routes
+	s.router.POST("/api/factory", api.FactoryNew)
+
 	ui := _ui.New(s.DB)
 
 	// ui routes

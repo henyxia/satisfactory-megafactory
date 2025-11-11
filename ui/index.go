@@ -8,11 +8,17 @@ import (
 )
 
 func (u *UI) Index(g *gin.Context) {
-	var floors []models.Floor
+	/*
+		var floors []models.Floor
 
-	u.db.Find(&floors)
+		u.db.Find(&floors)
+	*/
 
-	g.HTML(http.StatusOK, "index.html", gin.H{
-		"floors": floors,
+	var factories []models.Factory
+
+	u.db.Find(&factories)
+
+	g.HTML(http.StatusOK, "pages/index.html", gin.H{
+		"factories": factories,
 	})
 }

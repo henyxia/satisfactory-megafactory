@@ -21,6 +21,9 @@ const (
 
 type Floor struct {
 	ID              uint `uri:"id" binding:"required"`
+	Factory         Factory
+	FactoryID       uint `gorm:"uniqueIndex:idx_floor_factory_level"`
+	Level           int  `gorm:"uniqueIndex:idx_floor_factory_level"`
 	Name            string
 	Status          FloorStatus
 	Type            FloorType

@@ -8,32 +8,73 @@
     <hr />
 </div>
 <div class="container">
-  <table class="table">
-    <thead>
-      <th>Level</th>
-      <th>Status</th>
-      <th>Type</th>
-      <th>Name</th>
-      <th>Input</th>
-      <th>Output</th>
-    </thead>
-    <tbody>
-      {{ range $floor := .floors }}
-      <tr>
-        <td><a href="/floor/{{ $floor.ID }}">{{ $floor.ID }}</a></td>
-        <td><span class="tag {{ $floor.StatusUIClass }}">{{ $floor.Status }}</td>
-        <td><span class="tag {{ $floor.TypeUIClass }}">{{ $floor.Type }}</td>
-        <td>{{ $floor.Name }}</td>
-        <td></td>
-        <td></td>
-      </tr>
+  <div class="fixed-grid has-2-cols">
+    <div class="grid">
+      {{ range $factory := .factories }}
+      {{ template "shards/factory-overview.html" $factory }}
       {{ end }}
-      <tr>
-        <td colspan="6" style="text-align: center">
-          <button class="button is-link"><span class="material-symbols-outlined">add_circle</span> Add level</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="card has-background-primary-light">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <button class="button is-primary is-light js-modal-trigger" data-target="modal-factory-new" style="display: block; margin: auto;">Create a new factory</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- new factory modal -->
+<div id="modal-factory-new" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create a new factory</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" id="modal-factory-new-name" placeholder="Name of the new factory">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on North side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-north" placeholder="40">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on East side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-east" placeholder="40">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on South side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-south" placeholder="40">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on West side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-west" placeholder="40">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-success" onclick="modalFactoryNew_Send();">Save changes</button>
+        <button class="button button-exit">Cancel</button>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="/assets/js/index.js"></script>
+
 {{ template "shards/common-bottom.html" }}
