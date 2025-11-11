@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -138,18 +139,18 @@ type Recipe struct {
  */
 func extractRecipeList() {
 	factoryConvertor := map[string]string{
-		"Desc_AssemblerMk1_C":     "Assember",
-		"Desc_Blender_C":          "Blender",
-		"Desc_ConstructorMk1_C":   "Constructor",
-		"Desc_Converter_C":        "Converter",
-		"Desc_FoundryMk1_C":       "Foundry",
-		"Desc_GeneratorNuclear_C": "Nuclear Generator",
-		"Desc_HadronCollider_C":   "Hadron Collider",
-		"Desc_ManufacturerMk1_C":  "Manufacurer",
-		"Desc_OilRefinery_C":      "Oil Refinery",
-		"Desc_Packager_C":         "Packager",
-		"Desc_QuantumEncoder_C":   "Quantum Encoder",
-		"Desc_SmelterMk1_C":       "Smelter",
+		"Desc_AssemblerMk1_C":     "buildingAssember",
+		"Desc_Blender_C":          "buildingBlender",
+		"Desc_ConstructorMk1_C":   "buildingConstructor",
+		"Desc_Converter_C":        "buildingConverter",
+		"Desc_FoundryMk1_C":       "buildingFoundry",
+		"Desc_GeneratorNuclear_C": "buildingNuclearGenerator",
+		"Desc_HadronCollider_C":   "buildingParicleAccelerator",
+		"Desc_ManufacturerMk1_C":  "buildingManufacurer",
+		"Desc_OilRefinery_C":      "buildingRefinery",
+		"Desc_Packager_C":         "buildingPackager",
+		"Desc_QuantumEncoder_C":   "buildingQuantumEncoder",
+		"Desc_SmelterMk1_C":       "buildingSmelter",
 	}
 
 	itemList := map[string]string{
@@ -344,8 +345,13 @@ func extractRecipeList() {
 		return
 	}
 
-	format := "| %-32s | %-18s | %-32s | %-32s |\n"
-	fmt.Printf(format+"\n", "Name", "Produced In", "Input")
+	fmt.Println("package main")
+	fmt.Println("")
+	fmt.Println("import \"github.com/henyxia/satisfactory-megafactory/models\"")
+	fmt.Println("")
+	fmt.Println("func (cfg *config) setRecipe() {")
+	var rendered []string
+
 	for _, _recipe := range recipes {
 		for _, recipe := range _recipe {
 			if len(recipe.ProducedIn) == 0 {
@@ -354,7 +360,6 @@ func extractRecipeList() {
 			if !recipe.Stable {
 				continue
 			}
-
 			_, isFicsmas := ficsmas[recipe.Name]
 			if isFicsmas {
 				continue
@@ -367,37 +372,47 @@ func extractRecipeList() {
 				continue
 			}
 
-			ingredientList := ""
+			var input []string
 			for _, ingredient := range recipe.Ingredients {
-				_ingredient, ok := itemList[ingredient.Name]
-				if ok {
-					ingredientList += fmt.Sprintf("%0.1f %s", ingredient.Qt, _ingredient)
-				} else {
-					fmt.Printf(format, recipe.Name, recipe.producedIn,
-						fmt.Sprintf("!! ingredient %0.1f x %s not found !!", ingredient.Qt, ingredient.Name), "")
-					ingredientList += ingredient.String()
-				}
-
-				ingredientList += " + "
+				input = append(input, fmt.Sprintf(
+					"{Item: *%s, Qt: %d}",
+					itemList[ingredient.Name],
+					uint(ingredient.Qt*10),
+				))
 			}
 
-			productList := ""
+			var output []string
 			for _, product := range recipe.Products {
-				_product, ok := itemList[product.Name]
-				if ok {
-					productList += fmt.Sprintf("%0.1f %s", product.Qt, _product)
-				} else {
-					fmt.Printf(format, recipe.Name, recipe.producedIn, "",
-						fmt.Sprintf("!! product %0.1f x %s not found !!", product.Qt, product.Name))
-					productList += product.String()
-				}
-
-				productList += " + "
+				output = append(output, fmt.Sprintf(
+					"{Item: *%s, Qt: %d}",
+					itemList[product.Name],
+					uint(product.Qt*10),
+				))
 			}
 
-			fmt.Printf(format, recipe.Name, recipe.producedIn, ingredientList, productList)
+			slug := strings.ToLower(recipe.Name)
+			slug = strings.ReplaceAll(slug, " ", "_")
+			slug = strings.ReplaceAll(slug, "(", "")
+			slug = strings.ReplaceAll(slug, ")", "")
+
+			rendered = append(rendered, fmt.Sprintf(
+				"		{Slug:\"%s\", Name:\"%s\", Duration: %d, ProducedIn: %s, Input: []models.RecipeInput{%s}, Output: []models.RecipeOutput{%s}},",
+				slug,
+				recipe.Name,
+				uint(recipe.Duration*10),
+				recipe.producedIn,
+				strings.Join(input, ", "),
+				strings.Join(output, ", "),
+			))
 		}
 	}
+
+	slices.Sort(rendered)
+	fmt.Println("	recipes := []models.Recipe{")
+	for _, line := range rendered {
+		fmt.Println(line)
+	}
+	fmt.Println("	}")
 }
 
 /*

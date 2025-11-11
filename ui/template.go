@@ -23,3 +23,7 @@ func Add5(p1, p2, p3, p4, p5 int) int {
 func Minus(p1, p2 int) int {
 	return p1 - p2
 }
+
+func Div(p1, p2 uint) float32 {
+	return float32(p1) / float32(p2)
+}

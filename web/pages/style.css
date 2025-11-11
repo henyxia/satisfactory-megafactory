@@ -35,3 +35,7 @@ dd {
     color: #acacac;
     font-weight: bold;
 }
+
+.card {
+    width: 100%;
+}

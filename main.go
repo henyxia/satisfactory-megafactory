@@ -27,7 +27,11 @@ func (cfg *config) migrateDB() error {
 		models.Floor{},
 		models.ProductionLine{},
 		models.Port{},
+		models.Building{},
 		models.Item{},
+		models.Recipe{},
+		models.RecipeInput{},
+		models.RecipeOutput{},
 	)
 
 	cfg.setData()
@@ -94,6 +98,7 @@ func main() {
 		"add4":  _ui.Add4,
 		"add5":  _ui.Add5,
 		"minus": _ui.Minus,
+		"div":   _ui.Div,
 	})
 
 	// web pages
@@ -109,5 +114,6 @@ func main() {
 	router.GET("/floor/:id", ui.FloorView)
 	router.GET("/floor/:id/plan", ui.FloorPlan)
 	router.GET("/item", ui.ItemList)
+	router.GET("/recipes", ui.RecipeList)
 	router.Run()
 }

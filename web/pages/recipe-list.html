@@ -1,0 +1,52 @@
+{{ template "top" }}
+<div class="container">
+  <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/">Overview</a></li>
+            <li class="is-active"><a href="/recipes">Recipes</a></li>
+        </ul>
+    </nav>
+    <hr />
+</div>
+<div class="container">
+    <div class="grid is-col-min-16">
+        {{ range $recipe := .recipes }}
+        <div class="cell is-flex">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img
+                                    src="{{ (index $recipe.Output 0).Item.URLImage }}"
+                                    alt="Placeholder image"
+                                />
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">{{ $recipe.Name }}</p>
+                            <p class="subtitle is-6">Production in: {{ $recipe.ProducedIn.Name }} at {{ div $recipe.Duration 10 }}/s</p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <h2>Input</h2>
+                        <ul>
+                            {{ range $input := $recipe.Input}}
+                            <li>{{ div $input.Qt 10 }} {{ $input.Item.Name }}</li>
+                            {{ end }}
+                        </ul>
+                        <h2>Output</h2>
+                        <ul>
+                            {{ range $output := $recipe.Output }}
+                            <li>{{ div $output.Qt 10 }} {{ $output.Item.Name }}</li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ template "bottom" }}
