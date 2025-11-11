@@ -15,6 +15,7 @@
                 <div class="media-content" style="display: flex; justify-content: space-between;">
                     <p class="title is-4">{{ .factory.Name }}</p>
                     <div>
+                        <span class="material-symbols-outlined has-text-warning btn" onclick="showModal('factory-edit');">edit_square</span>
                         <span class="material-symbols-outlined has-text-danger btn" onclick="showModal('factory-delete');">delete</span>
                     </div>
                 </div>
@@ -68,6 +69,55 @@
       </tbody>
     </table>
   </div>
+
+<!-- edit factory modal -->
+<div id="modal-factory-edit" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit a factory</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" id="modal-factory-new-name" placeholder="Name of the new factory" value="{{ .factory.Name }}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on North side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-north" placeholder="40" value="{{ .factory.IONorth }}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on East side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-east" placeholder="40" value="{{ .factory.IOEast }}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on South side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-south" placeholder="40" value="{{ .factory.IOSouth }}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Inputs on West side</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-factory-new-io-west" placeholder="40" value="{{ .factory.IOWest }}">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-success" onclick="modalFactoryEdit_Send({{ .factory.ID }});">Save changes</button>
+        <button class="button button-exit">Cancel</button>
+      </div>
+    </footer>
+  </div>
+</div>
 
 <!-- delete factory modal -->
 <div id="modal-factory-delete" class="modal">

@@ -14,7 +14,7 @@ async function modalFactoryNew_Send() {
         },
         body: JSON.stringify(data)
       });
-      
+
     try {
         const result = await response.json();
         console.log(result);
