@@ -30,6 +30,16 @@ func Div(p1, p2 uint) float32 {
 	return float32(p1) / float32(p2)
 }
 
+func Max(p1 uint, pn ...uint) uint {
+	max := p1
+	for _, p := range pn {
+		if p > max {
+			max = p
+		}
+	}
+	return max
+}
+
 func (s *Server) customTemplateFunctions() {
 	s.router.SetFuncMap(template.FuncMap{
 		"mul":   Mul,
@@ -39,5 +49,6 @@ func (s *Server) customTemplateFunctions() {
 		"add5":  Add5,
 		"minus": Minus,
 		"div":   Div,
+		"max":   Max,
 	})
 }

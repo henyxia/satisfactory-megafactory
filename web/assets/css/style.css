@@ -10,17 +10,24 @@
     margin-bottom: 35px;
 }
 
+dl {
+    display: grid;
+    grid-template-columns: max-content auto;
+}
+
 dt {
-    float: left;
+    grid-column-start: 1;
+    /*float: left;
     clear: left;
     margin-right: 30px;
     width: 160px;
-    text-align: right;
+    text-align: right;*/
     font-weight: bold;
 }
 
 dd {
-    margin-left: 0px;
+    grid-column-start: 2;
+    /*margin-left: 0px;*/
 }
 
 .material-symbols-outlined {

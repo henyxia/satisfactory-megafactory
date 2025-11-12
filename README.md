@@ -65,6 +65,6 @@ The list being:
 
 - [ ] CRUD on floors
 - [ ] CRUD on production line
-- [ ] Allow multiple Megafactory
+- [x] Allow multiple Megafactory
 - [ ] Compute input and output speed per floor
 - [ ] Render floor plan with lift usage

@@ -20,45 +20,50 @@
                     </div>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" style="display: flex; justify-content: space-between;">
+              <div>
                 <dl>
-                    <dt>Floors</dt>
-                    <dd>{{ len .factory.Floors }}</dd>
-                    <dt>Production lines</dt>
-                    <dd>{{ .productionLineCount }}</dd>
-                    <dt>IO North</dt>
-                    <dd>{{ .factory.IONorth }}</dd>
-                    <dt>IO East</dt>
-                    <dd>{{ .factory.IOEast }}</dd>
-                    <dt>IO South</dt>
-                    <dd>{{ .factory.IOSouth }}</dd>
-                    <dt>IO West</dt>
-                    <dd>{{ .factory.IOWest }}</dd>
+                  <dt>Floors</dt>
+                  <dd>{{ len .factory.Floors }}</dd>
+                  <dt>Production lines</dt>
+                  <dd>{{ .productionLineCount }}</dd>
                 </dl>
+              </div>
+              <div>
+                <dl>
+                  <dt>IO North</dt>
+                  <dd>{{ .factory.IONorth }}</dd>
+                  <dt>IO East</dt>
+                  <dd>{{ .factory.IOEast }}</dd>
+                </dl>
+              </div>
+              <div>
+                <dl>
+                  <dt>IO South</dt>
+                  <dd>{{ .factory.IOSouth }}</dd>
+                  <dt>IO West</dt>
+                  <dd>{{ .factory.IOWest }}</dd>
+                </dl>
+              </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="" style="display: flex; justify-content: space-between;">
+  <div>
     <table class="table">
       <thead>
         <th>Level</th>
-        <th>Status</th>
-        <th>Type</th>
         <th>Name</th>
-        <th>Input</th>
-        <th>Output</th>
+        <th>Status</th>
       </thead>
       <tbody>
         {{ range $floor := .factory.Floors }}
         <tr>
-          <td><a href="/floor/{{ $floor.ID }}">{{ $floor.ID }}</a></td>
+          <th class="has-text-centered">{{ $floor.Level }}</th>
+          <td><a href="/floor/{{ $floor.ID }}">{{ $floor.Name }}</a></td>
           <td><span class="tag {{ $floor.StatusUIClass }}">{{ $floor.Status }}</td>
-          <td><span class="tag {{ $floor.TypeUIClass }}">{{ $floor.Type }}</td>
-          <td>{{ $floor.Name }}</td>
-          <td></td>
-          <td></td>
         </tr>
         {{ end }}
         <tr>
@@ -69,6 +74,106 @@
       </tbody>
     </table>
   </div>
+  <div>
+    <table class="table is-bordered is-striped is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th></th>
+          {{ if .factory.IONorth }}<th colspan="4" class="has-text-centered">North</th>{{ end }}
+          {{ if .factory.IOEast }}<th colspan="4" class="has-text-centered">East</th>{{ end }}
+          {{ if .factory.IOSouth }}<th colspan="4" class="has-text-centered">South</th>{{ end }}
+          {{ if .factory.IOWest }}<th colspan="4" class="has-text-centered">West</th>{{ end }}
+        </tr>
+        <tr>
+          <th>Position</th>
+          {{ if .factory.IONorth }}
+          <th>Lower Right</th>
+          <th>Higher Right</th>
+          <th>Lower Left</th>
+          <th>Higher Left</th>
+          {{ end }}
+          {{ if .factory.IOEast }}
+          <th>Lower Right</th>
+          <th>Higher Right</th>
+          <th>Lower Left</th>
+          <th>Higher Left</th>
+          {{ end }}
+          {{ if .factory.IOSouth }}
+          <th>Lower Right</th>
+          <th>Higher Right</th>
+          <th>Lower Left</th>
+          <th>Higher Left</th>
+          {{ end }}
+          {{ if .factory.IOWest }}
+          <th>Lower Right</th>
+          <th>Higher Right</th>
+          <th>Lower Left</th>
+          <th>Higher Left</th>
+          {{ end }}
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $i := max .factory.IONorth .factory.IOEast .factory.IOSouth .factory.IOWest }}
+        <tr>
+          <th class="has-text-centered">{{ $i }}</th>
+          {{ if $.factory.IONorth }}
+          {{ if lt $i $.factory.IONorth }}
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          {{ else }}
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          {{ end }}
+          {{ end }}
+          {{ if $.factory.IOEast }}
+          {{ if lt $i $.factory.IOEast }}
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          {{ else }}
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          {{ end }}
+          {{ end }}
+          {{ if $.factory.IOSouth }}
+          {{ if lt $i $.factory.IOSouth }}
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          {{ else }}
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          {{ end }}
+          {{ end }}
+          {{ if $.factory.IOWest }}
+          {{ if lt $i $.factory.IOWest }}
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          {{ else }}
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          <td class="has-background-grey-lighter"></td>
+          {{ end }}
+          {{ end }}
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <!-- edit factory modal -->
 <div id="modal-factory-edit" class="modal">
