@@ -61,7 +61,7 @@ func (u *UI) FloorPlan(g *gin.Context) {
 		WestIO:  36,
 	}
 
-	g.HTML(http.StatusOK, "floor-plan.svg", gin.H{
+	g.HTML(http.StatusOK, "pages/floor-plan.svg", gin.H{
 		"floor": floor,
 		"cfg":   megafactoryConfiguration,
 	})
