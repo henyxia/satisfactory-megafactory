@@ -41,3 +41,31 @@ async function modalFactoryEdit_Send(id) {
       console.warn(e);
   }
 }
+
+async function modalFloorNew_Send(factory_id) {
+  data = {
+      "name": getInputValue("modal-floor-new-name"),
+      "level": getInputValueInt("modal-floor-new-level"),
+      "status": getInputValue("modal-floor-new-status"),
+      "factory_id": factory_id,
+  };
+
+  const response = await fetch('/api/factory/floor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+  try {
+    const result = await response.json();
+    if (!response.ok) {
+        console.warn(result.error);
+    } else {
+        window.location.reload();
+    }
+  } catch(e) {
+    console.error(e);
+  }
+}

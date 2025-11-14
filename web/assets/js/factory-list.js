@@ -17,9 +17,12 @@ async function modalFactoryNew_Send() {
 
     try {
         const result = await response.json();
-        console.log(result);
-        window.location.reload();
+        if (!response.ok) {
+            console.warn(result.error);
+        } else {
+            window.location.reload();
+        }
     } catch(e) {
-        console.warn(e);
+        console.error(e);
     }
 }

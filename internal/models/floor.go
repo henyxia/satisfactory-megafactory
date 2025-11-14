@@ -19,13 +19,24 @@ const (
 	FloorTypeAssembler   FloorType = "assembler"
 )
 
+type FloorNew struct {
+	FactoryID uint        `json:"factory_id" binding:"required" gorm:"uniqueIndex:idx_floor_factory_level"`
+	Level     int         `json:"level" binding:"required" gorm:"uniqueIndex:idx_floor_factory_level"`
+	Name      string      `json:"name" binding:"required"`
+	Status    FloorStatus `json:"status" binding:"required"`
+}
+
+func (FloorNew) TableName() string {
+	return "floors"
+}
+
 type Floor struct {
-	ID              uint `uri:"id" binding:"required"`
+	ID              uint `json:"id" uri:"floor_id" binding:"required"`
 	Factory         Factory
-	FactoryID       uint `gorm:"uniqueIndex:idx_floor_factory_level"`
-	Level           int  `gorm:"uniqueIndex:idx_floor_factory_level"`
-	Name            string
-	Status          FloorStatus
+	FactoryID       uint        `json:"factory_id" gorm:"uniqueIndex:idx_floor_factory_level"`
+	Level           int         `json:"level" gorm:"uniqueIndex:idx_floor_factory_level"`
+	Name            string      `json:"name"`
+	Status          FloorStatus `json:"status"`
 	Type            FloorType
 	ProductionLines []ProductionLine
 	Ports           []Port

@@ -68,7 +68,7 @@
         {{ end }}
         <tr>
           <td colspan="6" style="text-align: center">
-            <button class="button is-link"><span class="material-symbols-outlined">add_circle</span> Add level</button>
+            <button class="button is-link" onclick="showModal('floor-new');"><span class="material-symbols-outlined">add_circle</span> Add level</button>
           </td>
         </tr>
       </tbody>
@@ -242,6 +242,49 @@
         </div>
       </footer>
     </div>
+</div>
+
+<!-- new floor modal -->
+<div id="modal-floor-new" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add a new floor in {{ .factory.Name }}</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" id="modal-floor-new-name" placeholder="Name of the new floor">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Floor level</label>
+        <div class="control">
+          <input class="input" type="number" id="modal-floor-new-level" value="{{ add (len .factory.Floors ) 1 }}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Status</label>
+        <div class="control">
+          <div class="select" style="width: 100%;">
+            <select id="modal-floor-new-status" style="width: 100%;">
+              <option value="absent">Planned</option>
+              <option value="in-progress">In Progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-success" onclick="modalFloorNew_Send({{ .factory.ID }});">Save changes</button>
+        <button class="button button-exit">Cancel</button>
+      </div>
+    </footer>
+  </div>
 </div>
 
 <script type="text/javascript" src="/assets/js/factory-view.js"></script>
