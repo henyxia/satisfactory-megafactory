@@ -68,5 +68,5 @@ func (f *Floor) URLView() string {
 }
 
 func (f *Floor) BreadcrumbName() string {
-	return fmt.Sprintf("%d - %s", f.ID, f.Name)
+	return fmt.Sprintf("%d - %s", f.Level, f.Name)
 }

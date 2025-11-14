@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type Factory struct {
 	ID      uint
 	Name    string `json:"name"`
@@ -8,4 +10,8 @@ type Factory struct {
 	IOSouth uint   `json:"io_south"`
 	IOWest  uint   `json:"io_west"`
 	Floors  []Floor
+}
+
+func (f *Factory) URLView() string {
+	return fmt.Sprintf("/factory/%d", f.ID)
 }

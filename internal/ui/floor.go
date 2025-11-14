@@ -17,6 +17,7 @@ func (u *UI) FloorView(g *gin.Context) {
 	}
 
 	result := u.db.
+		Preload("Factory").
 		Preload("ProductionLines").
 		Preload("ProductionLines.PortInput").
 		First(floor)

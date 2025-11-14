@@ -3,7 +3,8 @@
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <ul>
             <li><a href="/">Overview</a></li>
-            <li class="is-active"><a href="{{ .floor.URLView }}" aria-current="page">{{ .floor.BreadcrumbName }}</a></li>
+            <li class=""><a href="{{ .floor.Factory.URLView }}">Factory: {{ .floor.Factory.Name }}</a></li>
+            <li class="is-active"><a href="{{ .floor.URLView }}">{{ .floor.BreadcrumbName }}</a></li>
         </ul>
       </nav>
       <hr />
