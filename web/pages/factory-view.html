@@ -63,7 +63,7 @@
         <tr>
           <th class="has-text-centered">{{ if ge $floor.Level 0 }}{{ $floor.Level }}{{ else }}B{{ mul $floor.Level -1 }}{{ end }}</th>
           <td><a href="{{ $floor.URLView }}">{{ $floor.Name }}</a></td>
-          <td><span class="tag {{ $floor.StatusUIClass }}">{{ $floor.Status }}</td>
+          <td><span class="tag {{ $floor.StatusUIClass }} is-full-width">{{ $floor.Status }}</td>
         </tr>
         {{ end }}
         <tr>

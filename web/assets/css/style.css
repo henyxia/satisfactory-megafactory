@@ -51,3 +51,7 @@ dd {
 .btn {
     cursor: pointer;
 }
+
+.is-full-width {
+    width: 100%;
+}
