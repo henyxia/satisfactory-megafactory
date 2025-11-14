@@ -62,7 +62,7 @@
         {{ range $floor := .factory.Floors }}
         <tr>
           <th class="has-text-centered">{{ $floor.Level }}</th>
-          <td><a href="/floor/{{ $floor.ID }}">{{ $floor.Name }}</a></td>
+          <td><a href="{{ $floor.URLView }}">{{ $floor.Name }}</a></td>
           <td><span class="tag {{ $floor.StatusUIClass }}">{{ $floor.Status }}</td>
         </tr>
         {{ end }}

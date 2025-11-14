@@ -19,19 +19,8 @@ const (
 	FloorTypeAssembler   FloorType = "assembler"
 )
 
-type FloorNew struct {
-	FactoryID uint        `json:"factory_id" binding:"required" gorm:"uniqueIndex:idx_floor_factory_level"`
-	Level     int         `json:"level" binding:"required" gorm:"uniqueIndex:idx_floor_factory_level"`
-	Name      string      `json:"name" binding:"required"`
-	Status    FloorStatus `json:"status" binding:"required"`
-}
-
-func (FloorNew) TableName() string {
-	return "floors"
-}
-
 type Floor struct {
-	ID              uint `json:"id" uri:"floor_id" binding:"required"`
+	ID              uint `uri:"floor_id" binding:"required"`
 	Factory         Factory
 	FactoryID       uint        `json:"factory_id" gorm:"uniqueIndex:idx_floor_factory_level"`
 	Level           int         `json:"level" gorm:"uniqueIndex:idx_floor_factory_level"`
@@ -64,9 +53,20 @@ func (f *Floor) StatusUIClass() string {
 }
 
 func (f *Floor) URLView() string {
-	return fmt.Sprintf("/floor/%d", f.ID)
+	return fmt.Sprintf("/factory/%d/floor/%d", f.FactoryID, f.ID)
 }
 
 func (f *Floor) BreadcrumbName() string {
 	return fmt.Sprintf("%d - %s", f.Level, f.Name)
+}
+
+type FloorNew struct {
+	FactoryID uint        `json:"factory_id" binding:"required" gorm:"uniqueIndex:idx_floor_factory_level"`
+	Level     int         `json:"level" binding:"required" gorm:"uniqueIndex:idx_floor_factory_level"`
+	Name      string      `json:"name" binding:"required"`
+	Status    FloorStatus `json:"status" binding:"required"`
+}
+
+func (FloorNew) TableName() string {
+	return "floors"
 }

@@ -8,7 +8,7 @@ import (
 )
 
 func (a *API) FactoryNew(g *gin.Context) {
-	var factory models.Factory
+	var factory models.FactoryNew
 
 	err := g.ShouldBindJSON(&factory)
 	if err != nil {

@@ -1,18 +1,21 @@
 async function modalFactoryDelete_Send(id) {
-    const response = await fetch('/api/factory/'+id, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
+  const response = await fetch('/api/factory/'+id, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
 
-    try {
-        const result = await response.json();
-        console.log(result);
-        window.location.pathname = '/';
-    } catch(e) {
-        console.warn(e);
+  try {
+    const result = await response.json();
+    if (!response.ok) {
+        console.warn(result.error);
+    } else {
+      window.location.pathname = '/';
     }
+  } catch(e) {
+    console.error(e);
+  }
 }
 
 async function modalFactoryEdit_Send(id) {
@@ -31,14 +34,17 @@ async function modalFactoryEdit_Send(id) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    });
+  });
     
   try {
-      const result = await response.json();
-      console.log(result);
-      window.location.reload();
+    const result = await response.json();
+    if (!response.ok) {
+        console.warn(result.error);
+    } else {
+        window.location.reload();
+    }
   } catch(e) {
-      console.warn(e);
+    console.error(e);
   }
 }
 
