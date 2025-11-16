@@ -10,15 +10,6 @@ const (
 	FloorStatusDone       FloorStatus = "done"
 )
 
-type FloorType string
-
-const (
-	FloorTypeAbsent      FloorType = "absent"
-	FloorTypeSmelter     FloorType = "smelter"
-	FloorTypeConstructor FloorType = "constructor"
-	FloorTypeAssembler   FloorType = "assembler"
-)
-
 type Floor struct {
 	ID              uint `uri:"floor_id" binding:"required"`
 	Factory         Factory
@@ -26,21 +17,19 @@ type Floor struct {
 	Level           int         `json:"level" gorm:"uniqueIndex:idx_floor_factory_level"`
 	Name            string      `json:"name"`
 	Status          FloorStatus `json:"status"`
-	Type            FloorType
+	Type            uint        `json:"floor_type" min:1 max:2`
 	ProductionLines []ProductionLine
 	Ports           []Port
 	IOs             []IO
 }
 
-var floorTypeAsUIClass = map[FloorType]string{
-	FloorTypeAbsent:      "",
-	FloorTypeSmelter:     "is-success is-light",
-	FloorTypeConstructor: "is-info is-light",
-	FloorTypeAssembler:   "is-warning is-light",
+var floorTypeAsString = map[uint]string{
+	1: "io",
+	2: "production",
 }
 
-func (f *Floor) TypeUIClass() string {
-	return floorTypeAsUIClass[f.Type]
+func (f *Floor) TypeAsString() string {
+	return floorTypeAsString[f.Type]
 }
 
 var floorStatusAsUIClass = map[FloorStatus]string{

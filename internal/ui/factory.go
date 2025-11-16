@@ -50,7 +50,7 @@ func (u *UI) FactoryView(g *gin.Context) {
 	}
 
 	hpFloor := &models.Floor{}
-	result = u.db.Where("factory_id = ?", factory.ID).Order("level asc").First(hpFloor)
+	result = u.db.Where("factory_id = ? and type = 1", factory.ID).Order("level asc").First(hpFloor)
 	if result.RowsAffected > 0 {
 		response["homepageFloor"] = hpFloor.ID
 	}
