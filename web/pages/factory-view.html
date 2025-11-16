@@ -1,9 +1,15 @@
 {{ template "shards/common-top.html" }}
 
 <style>
-  #io-table .tag {
-    width: 50%;
-  }
+  #main-content {
+  padding: 70px 1em 2em 260px;
+  min-height: calc(100vh - 64px);
+  transition: 0.2s all ease-out; }
+  #main-content.sidebar--closed {
+    padding: 70px 1em 2em 70px; }
+  @media (max-width: 768px) {
+    .main {
+      padding: 70px 1em 2em 70px; } }
 
   .modal-new-io-button {
     display: none;
@@ -203,7 +209,7 @@
 </style>
 
 
-<aside id="main-sidebar" class="aside">
+<aside id="main-sidebar" class="aside closed">
   <nav class="menu active-menu--home">
     <p class="menu-label">Floors
     </p>
@@ -231,159 +237,161 @@
   </div>
 </aside>
 
-<div class="container">
-  <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
-    <ul>
-      <li><a href="/">Overview</a></li>
-      <li class="is-active"><a>Factory: {{ .factory.Name }}</a></li>
-    </ul>
-  </nav>
-  <hr />
-</div>
-<div class="container">
-  <div class="card">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-content" style="display: flex; justify-content: space-between;">
-          <p class="title is-4">{{ .factory.Name }}</p>
-          <div>
-            <span class="material-symbols-outlined has-text-warning btn"
-              onclick="showModal('factory-edit');">edit_square</span>
-            <span class="material-symbols-outlined has-text-danger btn"
-              onclick="showModal('factory-delete');">delete</span>
+<div id="main-content" class="sidebar--closed">
+  <div class="container">
+    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="/">Overview</a></li>
+        <li class="is-active"><a>Factory: {{ .factory.Name }}</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content" style="display: flex; justify-content: space-between;">
+            <p class="title is-4">{{ .factory.Name }}</p>
+            <div>
+              <span class="material-symbols-outlined has-text-warning btn"
+                onclick="showModal('factory-edit');">edit_square</span>
+              <span class="material-symbols-outlined has-text-danger btn"
+                onclick="showModal('factory-delete');">delete</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="content" style="display: flex; justify-content: space-between;">
-        <div>
-          <dl>
-            <dt>Floors</dt>
-            <dd>{{ len .factory.Floors }}</dd>
-            <dt>Production lines</dt>
-            <dd>{{ .productionLineCount }}</dd>
-          </dl>
-        </div>
-        <div>
-          <dl>
-            <dt>IO North</dt>
-            <dd>{{ .factory.IONorth }}</dd>
-            <dt>IO East</dt>
-            <dd>{{ .factory.IOEast }}</dd>
-          </dl>
-        </div>
-        <div>
-          <dl>
-            <dt>IO South</dt>
-            <dd>{{ .factory.IOSouth }}</dd>
-            <dt>IO West</dt>
-            <dd>{{ .factory.IOWest }}</dd>
-          </dl>
+        <div class="content" style="display: flex; justify-content: space-between;">
+          <div>
+            <dl>
+              <dt>Floors</dt>
+              <dd>{{ len .factory.Floors }}</dd>
+              <dt>Production lines</dt>
+              <dd>{{ .productionLineCount }}</dd>
+            </dl>
+          </div>
+          <div>
+            <dl>
+              <dt>IO North</dt>
+              <dd>{{ .factory.IONorth }}</dd>
+              <dt>IO East</dt>
+              <dd>{{ .factory.IOEast }}</dd>
+            </dl>
+          </div>
+          <div>
+            <dl>
+              <dt>IO South</dt>
+              <dd>{{ .factory.IOSouth }}</dd>
+              <dt>IO West</dt>
+              <dd>{{ .factory.IOWest }}</dd>
+            </dl>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="" style="display: flex; justify-content: center;">
-  <div>
-    <table id="io-table" class="table is-bordered is-striped is-narrow is-hoverable">
-      <thead>
-        <tr>
-          <th></th>
-          {{ if .factory.IONorth }}<th colspan="4" class="has-text-centered">North</th>{{ end }}
-          {{ if .factory.IOEast }}<th colspan="4" class="has-text-centered">East</th>{{ end }}
-          {{ if .factory.IOSouth }}<th colspan="4" class="has-text-centered">South</th>{{ end }}
-          {{ if .factory.IOWest }}<th colspan="4" class="has-text-centered">West</th>{{ end }}
-        </tr>
-        <tr>
-          <th>Position</th>
-          {{ if .factory.IONorth }}
-          <th class="has-text-centered">Lower Right</th>
-          <th class="has-text-centered">Higher Right</th>
-          <th class="has-text-centered">Lower Left</th>
-          <th class="has-text-centered">Higher Left</th>
+  <div class="" style="display: flex; justify-content: center;">
+    <div>
+      <table id="io-table" class="table is-bordered is-striped is-narrow is-hoverable">
+        <thead>
+          <tr>
+            <th></th>
+            {{ if .factory.IONorth }}<th colspan="4" class="has-text-centered">North</th>{{ end }}
+            {{ if .factory.IOEast }}<th colspan="4" class="has-text-centered">East</th>{{ end }}
+            {{ if .factory.IOSouth }}<th colspan="4" class="has-text-centered">South</th>{{ end }}
+            {{ if .factory.IOWest }}<th colspan="4" class="has-text-centered">West</th>{{ end }}
+          </tr>
+          <tr>
+            <th>Position</th>
+            {{ if .factory.IONorth }}
+            <th class="has-text-centered">Lower Right</th>
+            <th class="has-text-centered">Higher Right</th>
+            <th class="has-text-centered">Lower Left</th>
+            <th class="has-text-centered">Higher Left</th>
+            {{ end }}
+            {{ if .factory.IOEast }}
+            <th class="has-text-centered">Lower Right</th>
+            <th class="has-text-centered">Higher Right</th>
+            <th class="has-text-centered">Lower Left</th>
+            <th class="has-text-centered">Higher Left</th>
+            {{ end }}
+            {{ if .factory.IOSouth }}
+            <th class="has-text-centered">Lower Right</th>
+            <th class="has-text-centered">Higher Right</th>
+            <th class="has-text-centered">Lower Left</th>
+            <th class="has-text-centered">Higher Left</th>
+            {{ end }}
+            {{ if .factory.IOWest }}
+            <th class="has-text-centered">Lower Right</th>
+            <th class="has-text-centered">Higher Right</th>
+            <th class="has-text-centered">Lower Left</th>
+            <th class="has-text-centered">Higher Left</th>
+            {{ end }}
+          </tr>
+        </thead>
+        <tbody>
+          {{ range $i := max .factory.IONorth .factory.IOEast .factory.IOSouth .factory.IOWest }}
+          {{- $j := up1 $i -}}
+          <tr>
+            <th class="has-text-centered">{{ $j }}</th>
+            {{ if $.factory.IONorth }}
+            {{ if lt $i $.factory.IONorth }}
+            <td id="io-0-{{ $j }}-0"></td>
+            <td id="io-0-{{ $j }}-1"></td>
+            <td id="io-0-{{ $j }}-2"></td>
+            <td id="io-0-{{ $j }}-3"></td>
+            {{ else }}
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            {{ end }}
+            {{ end }}
+            {{ if $.factory.IOEast }}
+            {{ if lt $i $.factory.IOEast }}
+            <td id="io-1-{{ $j }}-0"></td>
+            <td id="io-1-{{ $j }}-1"></td>
+            <td id="io-1-{{ $j }}-2"></td>
+            <td id="io-1-{{ $j }}-3"></td>
+            {{ else }}
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            {{ end }}
+            {{ end }}
+            {{ if $.factory.IOSouth }}
+            {{ if lt $i $.factory.IOSouth }}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            {{ else }}
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            {{ end }}
+            {{ end }}
+            {{ if $.factory.IOWest }}
+            {{ if lt $i $.factory.IOWest }}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            {{ else }}
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            <td class="has-background-grey-lighter"></td>
+            {{ end }}
+            {{ end }}
+          </tr>
           {{ end }}
-          {{ if .factory.IOEast }}
-          <th class="has-text-centered">Lower Right</th>
-          <th class="has-text-centered">Higher Right</th>
-          <th class="has-text-centered">Lower Left</th>
-          <th class="has-text-centered">Higher Left</th>
-          {{ end }}
-          {{ if .factory.IOSouth }}
-          <th class="has-text-centered">Lower Right</th>
-          <th class="has-text-centered">Higher Right</th>
-          <th class="has-text-centered">Lower Left</th>
-          <th class="has-text-centered">Higher Left</th>
-          {{ end }}
-          {{ if .factory.IOWest }}
-          <th class="has-text-centered">Lower Right</th>
-          <th class="has-text-centered">Higher Right</th>
-          <th class="has-text-centered">Lower Left</th>
-          <th class="has-text-centered">Higher Left</th>
-          {{ end }}
-        </tr>
-      </thead>
-      <tbody>
-        {{ range $i := max .factory.IONorth .factory.IOEast .factory.IOSouth .factory.IOWest }}
-        {{- $j := up1 $i -}}
-        <tr>
-          <th class="has-text-centered">{{ $j }}</th>
-          {{ if $.factory.IONorth }}
-          {{ if lt $i $.factory.IONorth }}
-          <td id="io-0-{{ $j }}-0"></td>
-          <td id="io-0-{{ $j }}-1"></td>
-          <td id="io-0-{{ $j }}-2"></td>
-          <td id="io-0-{{ $j }}-3"></td>
-          {{ else }}
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          {{ end }}
-          {{ end }}
-          {{ if $.factory.IOEast }}
-          {{ if lt $i $.factory.IOEast }}
-          <td id="io-1-{{ $j }}-0"></td>
-          <td id="io-1-{{ $j }}-1"></td>
-          <td id="io-1-{{ $j }}-2"></td>
-          <td id="io-1-{{ $j }}-3"></td>
-          {{ else }}
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          {{ end }}
-          {{ end }}
-          {{ if $.factory.IOSouth }}
-          {{ if lt $i $.factory.IOSouth }}
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          {{ else }}
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          {{ end }}
-          {{ end }}
-          {{ if $.factory.IOWest }}
-          {{ if lt $i $.factory.IOWest }}
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          {{ else }}
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          <td class="has-background-grey-lighter"></td>
-          {{ end }}
-          {{ end }}
-        </tr>
-        {{ end }}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

@@ -78,26 +78,28 @@ async function modalFloorNew_Send(factory_id) {
 
 function factoryView_ioCellContent(io) {
   content = '';
-  content += '<div class="tags has-addons"><span class="tag is-dark">'+io.Building.Building.Name;
-  content += '</span><span class="tag is-success">'+io.Building.Recipe.Name+'</span></div>';
+  content += '<div class="tags has-addons">';
+  content += '<span class="tag is-dark">'+io.Building.Building.Name+'</span>';
+  content += '<span class="tag is-success">'+io.Building.Recipe.Name+'</span>';
 
   if (io.Building.Recipe.Output[0] != null) {
     throughput = 60;
     throughput *= io.Building.Recipe.Output[0].Qt;
     throughput /= io.Building.Recipe.Duration;
 
-    content += '<div class="tags has-addons">';
-    content += '<span class="tag is-dark">Speed</span>';
     content += '<span class="tag is-info">'+throughput+'/m</span>';
-    content += '</div>';
   }
 
+  content += '</div>';
+
+  /* to enable with option
   if (io.Building.note != '') {
     content += '<div class="tags has-addons">';
     content += '<span class="tag is-dark">Note</span>';
     content += '<span class="tag is-primary">'+io.Building.note+'</span>';
     content += '</div>';
   }
+   */
 
   return content;
 }
@@ -235,17 +237,19 @@ async function factoryView_NewIOSend() {
 
 function factoryView_ToggleSidebar() {
   sidebar = document.getElementById('main-sidebar');
+  mainContent = document.getElementById('main-content');
+
+
   sidebar.classList.toggle('closed')
 
   if (sidebar.classList.contains('closed')) {
+    /*)
     withChildren.forEach(function(wChildrenEl) {
       wChildrenEl.classList.remove('open')
-    })
+    })*/
 
     mainContent.classList.add('sidebar--closed')
-    footerCopyright.classList.add('sidebar--closed')
   } else {
     mainContent.classList.remove('sidebar--closed')
-    footerCopyright.classList.remove('sidebar--closed')
   }
 }
