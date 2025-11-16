@@ -44,8 +44,8 @@ func (f *Floor) TypeUIClass() string {
 }
 
 var floorStatusAsUIClass = map[FloorStatus]string{
-	FloorStatusAbsent:     "is-light",
-	FloorStatusInProgress: "is-info",
+	FloorStatusAbsent:     "is-info",
+	FloorStatusInProgress: "is-link",
 	FloorStatusDone:       "is-success",
 }
 
