@@ -14,6 +14,9 @@ func (s *Server) setupRoutes() {
 	s.router.POST("/api/factory/floor", api.FloorNew)
 	s.router.PUT("/api/factory/:factory_id/floor/:floor_id", api.FloorEdit)
 	s.router.DELETE("/api/factory/:factory_id/floor/:floor_id", api.FloorDelete)
+	s.router.GET("/api/floor/:floor_id/io", api.FloorIO)
+	s.router.POST("/api/floor/:floor_id/io", api.FloorIONew)
+	s.router.GET("/api/building/:building_id/recipe", api.BuildingRecipe)
 
 	ui := _ui.New(s.DB)
 
@@ -22,6 +25,7 @@ func (s *Server) setupRoutes() {
 	s.router.GET("/factory/:factory_id", ui.FactoryView)
 	s.router.GET("/factory/:factory_id/floor/:floor_id", ui.FloorView)
 	s.router.GET("/floor/:floor_id/plan", ui.FloorPlan)
+	s.router.GET("/floor/:floor_id/io", ui.FloorIO)
 	s.router.GET("/item", ui.ItemList)
 	s.router.GET("/recipes", ui.RecipeList)
 }

@@ -67,3 +67,39 @@ func (u *UI) FloorPlan(g *gin.Context) {
 		"cfg":   megafactoryConfiguration,
 	})
 }
+
+func (u *UI) FloorIO(g *gin.Context) {
+	floor := &models.Floor{}
+
+	err := g.ShouldBindUri(floor)
+	if err != nil {
+		u.ErrNotFound(g)
+		return
+	}
+
+	result := u.db.
+		Preload("ProductionLines.PortInput").
+		First(floor)
+
+	if result.RowsAffected < 1 {
+		u.ErrNotFound(g)
+		return
+	}
+
+	megafactoryConfiguration := struct {
+		NorthIO int
+		EastIO  int
+		SouthIO int
+		WestIO  int
+	}{
+		NorthIO: 36,
+		EastIO:  36,
+		SouthIO: 36,
+		WestIO:  36,
+	}
+
+	g.HTML(http.StatusOK, "pages/floor-io.svg", gin.H{
+		"floor": floor,
+		"cfg":   megafactoryConfiguration,
+	})
+}

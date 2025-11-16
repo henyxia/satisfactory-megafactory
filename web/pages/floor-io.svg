@@ -1,0 +1,43 @@
+{{- $FactorySize := 36 -}}
+{{- $spaceBetweenIO := 5 -}}
+{{- $IOSpacer := 2 -}}
+{{- $IOAngleWidth := 3 -}}
+{{- $IOFlatWidth := 15 -}}
+{{- $IOWidth := 5 }}
+{{- $IOWidthNeg := minus 0 $IOWidth }}
+{{- $IOSize := add (add (mul $IOSpacer 2) (mul $IOAngleWidth 2)) $IOFlatWidth -}}
+<svg
+    height="{{add (mul $FactorySize $IOSize) (mul (add $FactorySize 1) $spaceBetweenIO) }}"
+    width="{{add (mul $FactorySize $IOSize) (mul (add $FactorySize 1) $spaceBetweenIO) }}"
+    xmlns="http://www.w3.org/2000/svg"
+    >
+    {{ range $i := $FactorySize }}
+    <polygon
+        points="
+            {{ add $IOSpacer (mul $IOSize $i) }},{{ add $IOSpacer $IOAngleWidth }}
+            {{ add3 $IOSpacer $IOAngleWidth (mul $IOSize $i) }},{{ $IOSpacer }}
+            {{ add4 $IOSpacer $IOAngleWidth $IOFlatWidth (mul $IOSize $i) }},{{ $IOSpacer }}
+            {{ add4 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth (mul $IOSize $i) }},{{ add $IOSpacer $IOAngleWidth }}
+            {{ add4 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth (mul $IOSize $i) }},{{ add3 $IOSpacer $IOAngleWidth $IOFlatWidth }}
+            {{ add4 $IOSpacer $IOAngleWidth $IOFlatWidth (mul $IOSize $i) }},{{ add3 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth }}
+            {{ add3 $IOSpacer $IOAngleWidth (mul $IOSize $i) }},{{ add3 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth }}
+            {{ add $IOSpacer (mul $IOSize $i) }},{{ add3 $IOSpacer $IOAngleWidth $IOFlatWidth }}
+        "
+        style="fill:#99a5c3;stroke:#212531;stroke-width:2"
+    />
+    <polygon
+        points="
+            {{ add3 $IOSpacer $IOWidth (mul $IOSize $i) }},{{ add3 $IOSpacer $IOWidth $IOAngleWidth }}
+            {{ add4 $IOSpacer $IOAngleWidth $IOWidth (mul $IOSize $i) }},{{ add $IOSpacer $IOWidth }}
+            {{ add5 $IOSpacer $IOAngleWidth $IOFlatWidth $IOWidthNeg (mul $IOSize $i) }},{{ add $IOSpacer $IOWidth }}
+            {{ add5 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth $IOWidthNeg (mul $IOSize $i) }},{{ add3 $IOSpacer $IOAngleWidth $IOWidth }}
+            {{ add5 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth $IOWidthNeg (mul $IOSize $i) }},{{ add4 $IOSpacer $IOAngleWidth $IOFlatWidth $IOWidthNeg }}
+            {{ add5 $IOSpacer $IOAngleWidth $IOFlatWidth $IOWidthNeg (mul $IOSize $i) }},{{ add4 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth $IOWidthNeg }}
+            {{ add4 $IOSpacer $IOAngleWidth $IOWidth (mul $IOSize $i) }},{{ add4 $IOSpacer (mul $IOAngleWidth 2) $IOFlatWidth $IOWidthNeg }}
+            {{ add3 $IOSpacer $IOWidth (mul $IOSize $i) }},{{ add4 $IOSpacer $IOAngleWidth $IOFlatWidth $IOWidthNeg }}
+        "
+        style="fill:white;stroke:#212531;stroke-width:2"
+    />
+
+    {{ end }}
+</svg>

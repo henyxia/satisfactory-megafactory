@@ -40,6 +40,10 @@ func Max(p1 uint, pn ...uint) uint {
 	return max
 }
 
+func UintPlusOne(p1 uint) uint {
+	return p1 + 1
+}
+
 func (s *Server) customTemplateFunctions() {
 	s.router.SetFuncMap(template.FuncMap{
 		"mul":   Mul,
@@ -50,5 +54,6 @@ func (s *Server) customTemplateFunctions() {
 		"minus": Minus,
 		"div":   Div,
 		"max":   Max,
+		"up1":   UintPlusOne,
 	})
 }

@@ -13,6 +13,8 @@ func (s *Server) migrateDB() error {
 		models.Recipe{},
 		models.RecipeInput{},
 		models.RecipeOutput{},
+		models.IOBuilding{},
+		models.IO{},
 	)
 
 	s.setData()

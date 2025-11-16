@@ -18,6 +18,9 @@ func (s *Server) setData() error {
 	buildingPackager := models.Building{ID: 10, Name: "Packager"}
 	buildingQuantumEncoder := models.Building{ID: 11, Name: "Quantum Encoder"}
 	buildingSmelter := models.Building{ID: 12, Name: "Smelter"}
+	buildingMinerMk1 := models.Building{ID: 13, Name: "Miner Mk1"}
+	buildingMinerMk2 := models.Building{ID: 14, Name: "Miner Mk2"}
+	buildingMinerMk3 := models.Building{ID: 15, Name: "Miner Mk3"}
 	buildings = append(buildings,
 		buildingAssember,
 		buildingBlender,
@@ -31,6 +34,9 @@ func (s *Server) setData() error {
 		buildingPackager,
 		buildingQuantumEncoder,
 		buildingSmelter,
+		buildingMinerMk1,
+		buildingMinerMk2,
+		buildingMinerMk3,
 	)
 
 	err := s.DB.Save(buildings).Error
@@ -640,6 +646,107 @@ func (s *Server) setData() error {
 		{Slug: "versatile_framework", Name: "Versatile Framework", Duration: 240, ProducedIn: buildingAssember, Input: []models.RecipeInput{{Item: *itemModularFrame, Qt: 10}, {Item: *itemSteelBeam, Qt: 120}}, Output: []models.RecipeOutput{{Item: *itemVersatileFramework, Qt: 20}}},
 		{Slug: "wet_concrete", Name: "Wet Concrete", Duration: 30, ProducedIn: buildingRefinery, Input: []models.RecipeInput{{Item: *itemLimestone, Qt: 60}, {Item: *itemWater, Qt: 50}}, Output: []models.RecipeOutput{{Item: *itemConcrete, Qt: 40}}},
 		{Slug: "wire", Name: "Wire", Duration: 40, ProducedIn: buildingConstructor, Input: []models.RecipeInput{{Item: *itemCopperIngot, Qt: 10}}, Output: []models.RecipeOutput{{Item: *itemWire, Qt: 20}}},
+
+		// manually added recipes
+		{Slug: "coal_mk1_impure", Name: "Coal Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 30}}},
+		{Slug: "coal_mk2_impure", Name: "Coal Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 60}}},
+		{Slug: "coal_mk3_impure", Name: "Coal Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 120}}},
+		{Slug: "coal_mk1_normal", Name: "Coal Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 60}}},
+		{Slug: "coal_mk2_normal", Name: "Coal Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 120}}},
+		{Slug: "coal_mk3_normal", Name: "Coal Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 240}}},
+		{Slug: "coal_mk1_pure", Name: "Coal Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 120}}},
+		{Slug: "coal_mk2_pure", Name: "Coal Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 240}}},
+		{Slug: "coal_mk3_pure", Name: "Coal Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCoal, Qt: 480}}},
+
+		{Slug: "limestone_mk1_impure", Name: "Limestone Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 30}}},
+		{Slug: "limestone_mk2_impure", Name: "Limestone Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 60}}},
+		{Slug: "limestone_mk3_impure", Name: "Limestone Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 120}}},
+		{Slug: "limestone_mk1_normal", Name: "Limestone Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 60}}},
+		{Slug: "limestone_mk2_normal", Name: "Limestone Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 120}}},
+		{Slug: "limestone_mk3_normal", Name: "Limestone Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 240}}},
+		{Slug: "limestone_mk1_pure", Name: "Limestone Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 120}}},
+		{Slug: "limestone_mk2_pure", Name: "Limestone Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 240}}},
+		{Slug: "limestone_mk3_pure", Name: "Limestone Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemLimestone, Qt: 480}}},
+
+		{Slug: "bauxite_mk1_impure", Name: "Bauxite Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 30}}},
+		{Slug: "bauxite_mk2_impure", Name: "Bauxite Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 60}}},
+		{Slug: "bauxite_mk3_impure", Name: "Bauxite Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 120}}},
+		{Slug: "bauxite_mk1_normal", Name: "Bauxite Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 60}}},
+		{Slug: "bauxite_mk2_normal", Name: "Bauxite Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 120}}},
+		{Slug: "bauxite_mk3_normal", Name: "Bauxite Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 240}}},
+		{Slug: "bauxite_mk1_pure", Name: "Bauxite Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 120}}},
+		{Slug: "bauxite_mk2_pure", Name: "Bauxite Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 240}}},
+		{Slug: "bauxite_mk3_pure", Name: "Bauxite Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemBauxite, Qt: 480}}},
+
+		{Slug: "caterium_mk1_impure", Name: "Caterium Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 30}}},
+		{Slug: "caterium_mk2_impure", Name: "Caterium Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 60}}},
+		{Slug: "caterium_mk3_impure", Name: "Caterium Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 120}}},
+		{Slug: "caterium_mk1_normal", Name: "Caterium Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 60}}},
+		{Slug: "caterium_mk2_normal", Name: "Caterium Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 120}}},
+		{Slug: "caterium_mk3_normal", Name: "Caterium Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 240}}},
+		{Slug: "caterium_mk1_pure", Name: "Caterium Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 120}}},
+		{Slug: "caterium_mk2_pure", Name: "Caterium Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 240}}},
+		{Slug: "caterium_mk3_pure", Name: "Caterium Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCateriumOre, Qt: 480}}},
+
+		{Slug: "copper_mk1_impure", Name: "Copper Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 30}}},
+		{Slug: "copper_mk2_impure", Name: "Copper Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 60}}},
+		{Slug: "copper_mk3_impure", Name: "Copper Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 120}}},
+		{Slug: "copper_mk1_normal", Name: "Copper Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 60}}},
+		{Slug: "copper_mk2_normal", Name: "Copper Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 120}}},
+		{Slug: "copper_mk3_normal", Name: "Copper Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 240}}},
+		{Slug: "copper_mk1_pure", Name: "Copper Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 120}}},
+		{Slug: "copper_mk2_pure", Name: "Copper Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 240}}},
+		{Slug: "copper_mk3_pure", Name: "Copper Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemCopperOre, Qt: 480}}},
+
+		{Slug: "iron_mk1_impure", Name: "Iron Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 30}}},
+		{Slug: "iron_mk2_impure", Name: "Iron Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 60}}},
+		{Slug: "iron_mk3_impure", Name: "Iron Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 120}}},
+		{Slug: "iron_mk1_normal", Name: "Iron Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 60}}},
+		{Slug: "iron_mk2_normal", Name: "Iron Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 120}}},
+		{Slug: "iron_mk3_normal", Name: "Iron Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 240}}},
+		{Slug: "iron_mk1_pure", Name: "Iron Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 120}}},
+		{Slug: "iron_mk2_pure", Name: "Iron Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 240}}},
+		{Slug: "iron_mk3_pure", Name: "Iron Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemIronOre, Qt: 480}}},
+
+		{Slug: "uranium_mk1_impure", Name: "Uranium Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 30}}},
+		{Slug: "uranium_mk2_impure", Name: "Uranium Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 60}}},
+		{Slug: "uranium_mk3_impure", Name: "Uranium Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 120}}},
+		{Slug: "uranium_mk1_normal", Name: "Uranium Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 60}}},
+		{Slug: "uranium_mk2_normal", Name: "Uranium Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 120}}},
+		{Slug: "uranium_mk3_normal", Name: "Uranium Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 240}}},
+		{Slug: "uranium_mk1_pure", Name: "Uranium Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 120}}},
+		{Slug: "uranium_mk2_pure", Name: "Uranium Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 240}}},
+		{Slug: "uranium_mk3_pure", Name: "Uranium Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemUranium, Qt: 480}}},
+
+		{Slug: "raw_quartz_mk1_impure", Name: "Raw Quartz Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 30}}},
+		{Slug: "raw_quartz_mk2_impure", Name: "Raw Quartz Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 60}}},
+		{Slug: "raw_quartz_mk3_impure", Name: "Raw Quartz Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 120}}},
+		{Slug: "raw_quartz_mk1_normal", Name: "Raw Quartz Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 60}}},
+		{Slug: "raw_quartz_mk2_normal", Name: "Raw Quartz Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 120}}},
+		{Slug: "raw_quartz_mk3_normal", Name: "Raw Quartz Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 240}}},
+		{Slug: "raw_quartz_mk1_pure", Name: "Raw Quartz Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 120}}},
+		{Slug: "raw_quartz_mk2_pure", Name: "Raw Quartz Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 240}}},
+		{Slug: "raw_quartz_mk3_pure", Name: "Raw Quartz Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemRawQuartz, Qt: 480}}},
+
+		{Slug: "sulfur_mk1_impure", Name: "Sulfur Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 30}}},
+		{Slug: "sulfur_mk2_impure", Name: "Sulfur Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 60}}},
+		{Slug: "sulfur_mk3_impure", Name: "Sulfur Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 120}}},
+		{Slug: "sulfur_mk1_normal", Name: "Sulfur Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 60}}},
+		{Slug: "sulfur_mk2_normal", Name: "Sulfur Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 120}}},
+		{Slug: "sulfur_mk3_normal", Name: "Sulfur Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 240}}},
+		{Slug: "sulfur_mk1_pure", Name: "Sulfur Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 120}}},
+		{Slug: "sulfur_mk2_pure", Name: "Sulfur Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 240}}},
+		{Slug: "sulfur_mk3_pure", Name: "Sulfur Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemSulfur, Qt: 480}}},
+
+		{Slug: "sam_mk1_impure", Name: "SAM Impure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 30}}},
+		{Slug: "sam_mk2_impure", Name: "SAM Impure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 60}}},
+		{Slug: "sam_mk3_impure", Name: "SAM Impure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 120}}},
+		{Slug: "sam_mk1_normal", Name: "SAM Normal", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 60}}},
+		{Slug: "sam_mk2_normal", Name: "SAM Normal", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 120}}},
+		{Slug: "sam_mk3_normal", Name: "SAM Normal", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 240}}},
+		{Slug: "sam_mk1_pure", Name: "SAM Pure", Duration: 60, ProducedIn: buildingMinerMk1, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 120}}},
+		{Slug: "sam_mk2_pure", Name: "SAM Pure", Duration: 60, ProducedIn: buildingMinerMk2, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 240}}},
+		{Slug: "sam_mk3_pure", Name: "SAM Pure", Duration: 60, ProducedIn: buildingMinerMk3, Output: []models.RecipeOutput{{Item: *itemSAM, Qt: 480}}},
 	}
 	err = s.DB.Save(&recipes).Error
 	if err != nil {

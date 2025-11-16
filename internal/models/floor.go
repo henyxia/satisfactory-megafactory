@@ -29,6 +29,7 @@ type Floor struct {
 	Type            FloorType
 	ProductionLines []ProductionLine
 	Ports           []Port
+	IOs             []IO
 }
 
 var floorTypeAsUIClass = map[FloorType]string{

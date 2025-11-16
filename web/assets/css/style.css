@@ -55,3 +55,7 @@ dd {
 .is-full-width {
     width: 100%;
 }
+
+.tags:not(:last-child) {
+    margin-bottom: 3px !important;
+}

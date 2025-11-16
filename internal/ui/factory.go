@@ -40,8 +40,20 @@ func (u *UI) FactoryView(g *gin.Context) {
 		Joins("join production_lines on production_lines.floor_id = floors.id").
 		Count(&productionLineCount)
 
-	g.HTML(http.StatusOK, "pages/factory-view.html", gin.H{
+	var buildings []models.Building
+	u.db.Order("name").Find(&buildings)
+
+	response := gin.H{
 		"factory":             factory,
 		"productionLineCount": productionLineCount,
-	})
+		"buildings":           buildings,
+	}
+
+	hpFloor := &models.Floor{}
+	result = u.db.Where("factory_id = ?", factory.ID).Order("level asc").First(hpFloor)
+	if result.RowsAffected > 0 {
+		response["homepageFloor"] = hpFloor.ID
+	}
+
+	g.HTML(http.StatusOK, "pages/factory-view.html", response)
 }

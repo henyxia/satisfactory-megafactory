@@ -46,6 +46,11 @@ function showModal(elem) {
   e.classList.add('is-active');
 }
 
+function closedModal(elem) {
+  e = document.getElementById('modal-'+elem);
+  e.classList.remove('is-active');
+}
+
 function getInputValue(element) {
   e = document.getElementById(element);
   return e.value;

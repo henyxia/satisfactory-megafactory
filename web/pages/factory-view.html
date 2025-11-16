@@ -1,4 +1,19 @@
 {{ template "shards/common-top.html" }}
+
+<style>
+#io-table .tag{
+  width: 50%;
+}
+
+.modal-new-io-button {
+  display: none;
+}
+
+td:hover .modal-new-io-button {
+  display: block;
+}
+</style>
+
 <div class="container">
     <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
         <ul>
@@ -52,11 +67,12 @@
 
 <div class="" style="display: flex; justify-content: space-between;">
   <div>
-    <table class="table">
+    <table class="table is-hoverable">
       <thead>
         <th>Level</th>
         <th>Name</th>
         <th>Status</th>
+        <th>IO</th>
       </thead>
       <tbody>
         {{ range $floor := .factory.Floors }}
@@ -64,6 +80,7 @@
           <th class="has-text-centered">{{ if ge $floor.Level 0 }}{{ $floor.Level }}{{ else }}B{{ mul $floor.Level -1 }}{{ end }}</th>
           <td><a href="{{ $floor.URLView }}">{{ $floor.Name }}</a></td>
           <td><span class="tag {{ $floor.StatusUIClass }} is-full-width">{{ $floor.Status }}</td>
+          <td><span class="material-symbols-outlined btn">input_circle</span></td>
         </tr>
         {{ end }}
         <tr>
@@ -75,7 +92,7 @@
     </table>
   </div>
   <div>
-    <table class="table is-bordered is-striped is-narrow is-hoverable">
+    <table id="io-table" class="table is-bordered is-striped is-narrow is-hoverable">
       <thead>
         <tr>
           <th></th>
@@ -87,41 +104,42 @@
         <tr>
           <th>Position</th>
           {{ if .factory.IONorth }}
-          <th>Lower Right</th>
-          <th>Higher Right</th>
-          <th>Lower Left</th>
-          <th>Higher Left</th>
+          <th class="has-text-centered">Lower Right</th>
+          <th class="has-text-centered">Higher Right</th>
+          <th class="has-text-centered">Lower Left</th>
+          <th class="has-text-centered">Higher Left</th>
           {{ end }}
           {{ if .factory.IOEast }}
-          <th>Lower Right</th>
-          <th>Higher Right</th>
-          <th>Lower Left</th>
-          <th>Higher Left</th>
+          <th class="has-text-centered">Lower Right</th>
+          <th class="has-text-centered">Higher Right</th>
+          <th class="has-text-centered">Lower Left</th>
+          <th class="has-text-centered">Higher Left</th>
           {{ end }}
           {{ if .factory.IOSouth }}
-          <th>Lower Right</th>
-          <th>Higher Right</th>
-          <th>Lower Left</th>
-          <th>Higher Left</th>
+          <th class="has-text-centered">Lower Right</th>
+          <th class="has-text-centered">Higher Right</th>
+          <th class="has-text-centered">Lower Left</th>
+          <th class="has-text-centered">Higher Left</th>
           {{ end }}
           {{ if .factory.IOWest }}
-          <th>Lower Right</th>
-          <th>Higher Right</th>
-          <th>Lower Left</th>
-          <th>Higher Left</th>
+          <th class="has-text-centered">Lower Right</th>
+          <th class="has-text-centered">Higher Right</th>
+          <th class="has-text-centered">Lower Left</th>
+          <th class="has-text-centered">Higher Left</th>
           {{ end }}
         </tr>
       </thead>
       <tbody>
         {{ range $i := max .factory.IONorth .factory.IOEast .factory.IOSouth .factory.IOWest }}
+        {{- $j := up1 $i -}}
         <tr>
-          <th class="has-text-centered">{{ $i }}</th>
+          <th class="has-text-centered">{{ $j }}</th>
           {{ if $.factory.IONorth }}
           {{ if lt $i $.factory.IONorth }}
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td id="io-0-{{ $j }}-0"></td>
+          <td id="io-0-{{ $j }}-1"></td>
+          <td id="io-0-{{ $j }}-2"></td>
+          <td id="io-0-{{ $j }}-3"></td>
           {{ else }}
           <td class="has-background-grey-lighter"></td>
           <td class="has-background-grey-lighter"></td>
@@ -131,10 +149,10 @@
           {{ end }}
           {{ if $.factory.IOEast }}
           {{ if lt $i $.factory.IOEast }}
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td id="io-1-{{ $j }}-0"></td>
+          <td id="io-1-{{ $j }}-1"></td>
+          <td id="io-1-{{ $j }}-2"></td>
+          <td id="io-1-{{ $j }}-3"></td>
           {{ else }}
           <td class="has-background-grey-lighter"></td>
           <td class="has-background-grey-lighter"></td>
@@ -287,6 +305,65 @@
   </div>
 </div>
 
+<!-- new io modal -->
+<div id="modal-io-new" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add a new IO on floor</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Building</label>
+        <div class="control">
+          <div class="select" style="width: 100%;">
+            <select id="modal-io-new-building" style="width: 100%;" autocomplete="off" onchange="factoryView_newIOGetBuildingRecipes();">
+              <option value="" selected>Choose a building</option>
+              {{ range $building := .buildings }}
+              <option value="{{ $building.ID }}">{{ $building.Name }}</option>
+              {{ end }}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Recipe</label>
+        <div class="control">
+          <div class="select" style="width: 100%;">
+            <select id="modal-io-new-recipe" style="width: 100%;" autocomplete="off">
+              <option value="" selected>Choose a building first</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Note</label>
+        <div class="control">
+          <input class="input" type="text" id="modal-io-new-note" placeholder="Like: Iron Ore Site A">
+        </div>
+      </div>
+      <input type="hidden" id="modal-io-new-floor-id">
+      <input type="hidden" id="modal-io-new-position-coded">
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-success" onclick="factoryView_NewIOSend();">Save changes</button>
+        <button class="button button-exit">Cancel</button>
+      </div>
+    </footer>
+  </div>
+</div>
+
+
 <script type="text/javascript" src="/assets/js/factory-view.js"></script>
+
+<script>
+  window.G_FactoryID = {{ .factory.ID }};
+  {{ if .homepageFloor }}
+  factoryView_LoadIOs(window.G_FactoryID, {{ .homepageFloor }});
+  {{ end }}
+</script>
 
 {{ template "shards/common-bottom.html" }}
