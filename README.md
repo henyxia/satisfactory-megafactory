@@ -63,7 +63,8 @@ As stated at the beginning of the document, the tool is not yet ready to be used
 There are still many work remaining to be as useful as the Google Sheet.
 The list being:
 
-- [ ] CRUD on floors
+- [x] CRUD on floors
+- [x] CRUD on IOs
 - [ ] CRUD on production line
 - [x] Allow multiple Megafactory
 - [ ] Compute input and output speed per floor
