@@ -1,96 +1,290 @@
 {{ template "shards/common-top.html" }}
 
 <style>
-#io-table .tag{
-  width: 50%;
-}
+  #io-table .tag {
+    width: 50%;
+  }
 
-.modal-new-io-button {
-  display: none;
-}
+  .modal-new-io-button {
+    display: none;
+  }
 
-td:hover .modal-new-io-button {
-  display: block;
-}
+  td:hover .modal-new-io-button {
+    display: block;
+  }
+
+
+  .aside {
+    background: #44475a;
+    padding: 2em .5em 0 .5em;
+    height: calc(100vh - 52px);
+    overflow: hidden;
+    transition: 0.2s width ease-out;
+    position: fixed;
+    top: 52px;
+    left: 0;
+    z-index: 2;
+    width: 250px;
+  }
+
+  .aside #sidebar-toggler {
+    width: 100%;
+    cursor: pointer;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background-color: #bd93f9;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .aside #sidebar-toggler .icon {
+    transition: 0.3s linear transform;
+  }
+
+  .aside a {
+    color: #f8f8f2;
+  }
+
+  .aside .menu-list li {
+    margin-top: .5em;
+  }
+
+  .aside .menu-list .has-children {
+    max-height: 36px;
+    overflow: hidden;
+    transition: 0.6s max-height ease-out;
+    position: relative;
+  }
+
+  .aside .menu-list .has-children>a {
+    position: relative;
+  }
+
+  .aside .menu-list .has-children>a::before {
+    content: "\f107";
+    font-family: "FontAwesome";
+    transition: .2s ease-out transform;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-45%);
+    transform-origin: center;
+    transition-duration: 0.3s;
+  }
+
+  .aside .menu-list .has-children.open {
+    max-height: 1000px;
+  }
+
+  .aside .menu-list .has-children.open>a::before {
+    transform: rotate(-180deg) translateY(40%);
+  }
+
+  .aside .menu-list .icon,
+  .aside .menu-list i {
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+
+  .aside.closed {
+    width: 60px;
+  }
+
+  .aside.closed .menu-label,
+  .aside.closed .menu-text {
+    display: none;
+  }
+
+  .aside.closed .has-children>a::before {
+    opacity: 0;
+  }
+
+  .aside.closed #sidebar-toggler {
+    justify-content: center;
+  }
+
+  .aside.closed #sidebar-toggler .icon {
+    transform: rotate(180deg);
+    margin-right: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .aside {
+      width: 60px;
+      overflow: auto;
+    }
+
+    .aside #sidebar-toggler {
+      display: none;
+    }
+
+    .aside:not(:hover) .menu-label,
+    .aside:not(:hover) .menu-text {
+      display: none;
+    }
+
+    .aside:not(:hover) .menu-list .has-children {
+      max-height: 36px;
+    }
+
+    .aside:not(:hover) .menu-list .has-children>a::before {
+      opacity: 0;
+    }
+
+    .aside:hover {
+      width: 250px;
+    }
+  }
+
+
+
+
+
+  .menu {
+    font-size: 1rem;
+  }
+
+  .menu.is-small {
+    font-size: 0.75rem;
+  }
+
+  .menu.is-medium {
+    font-size: 1.25rem;
+  }
+
+  .menu.is-large {
+    font-size: 1.5rem;
+  }
+
+  .menu-list {
+    line-height: 1.25;
+  }
+
+  .menu-list a {
+    border-radius: 2px;
+    color: #f8f8f2;
+    display: block;
+    padding: 0.5em 0.75em;
+    background-color: #44475a;
+  }
+
+  .menu-list a:hover {
+    background-color: #282a36;
+    color: #efefe1;
+  }
+
+  .menu-list a.is-active {
+    background-color: #ff79c6;
+    color: #fff;
+  }
+
+  .menu-list li ul {
+    border-left: 1px solid #dbdbdb;
+    margin: 0.75em;
+    padding-left: 0.75em;
+  }
+
+  .menu-label {
+    color: white;
+    font-size: 0.75em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .menu-label:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  .menu-label:not(:last-child) {
+    margin-bottom: 1em;
+  }
 </style>
 
+
+<aside id="main-sidebar" class="aside">
+  <nav class="menu active-menu--home">
+    <p class="menu-label">Floors
+    </p>
+    <ul class="menu-list" id="main-sidebar-floors">
+      {{ range $floor := .factory.Floors }}
+      <li>
+        <a data-floor-id={{ $floor.ID }} href="/bulma-admin-dashboard-template/">
+          <span class="icon is-small"><b>{{ if ge $floor.Level 0 }}{{ $floor.Level }}{{ else }}B{{ mul $floor.Level -1 }}{{ end }}</b></span>
+          <span class="menu-text">{{ $floor.Name }}</span>
+        </a>
+      </li>
+      {{ end }}
+      <li>
+        <a data-floor-id=-1>
+          <span class="icon is-small"><b><span class="material-symbols-outlined">add_circle</span></b></span>
+          <span class="menu-text" onclick="showModal('floor-new');"> Add level</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div id="sidebar-toggler" onclick="factoryView_ToggleSidebar();">
+    <span class="icon is-small">
+      <span class="material-symbols-outlined">keyboard_arrow_left</span>
+    </span>
+  </div>
+</aside>
+
 <div class="container">
-    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/">Overview</a></li>
-            <li class="is-active"><a>Factory: {{ .factory.Name }}</a></li>
-        </ul>
-      </nav>
-      <hr />
+  <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="/">Overview</a></li>
+      <li class="is-active"><a>Factory: {{ .factory.Name }}</a></li>
+    </ul>
+  </nav>
+  <hr />
 </div>
 <div class="container">
-    <div class="card">
-        <div class="card-content">
-            <div class="media">
-                <div class="media-content" style="display: flex; justify-content: space-between;">
-                    <p class="title is-4">{{ .factory.Name }}</p>
-                    <div>
-                        <span class="material-symbols-outlined has-text-warning btn" onclick="showModal('factory-edit');">edit_square</span>
-                        <span class="material-symbols-outlined has-text-danger btn" onclick="showModal('factory-delete');">delete</span>
-                    </div>
-                </div>
-            </div>
-            <div class="content" style="display: flex; justify-content: space-between;">
-              <div>
-                <dl>
-                  <dt>Floors</dt>
-                  <dd>{{ len .factory.Floors }}</dd>
-                  <dt>Production lines</dt>
-                  <dd>{{ .productionLineCount }}</dd>
-                </dl>
-              </div>
-              <div>
-                <dl>
-                  <dt>IO North</dt>
-                  <dd>{{ .factory.IONorth }}</dd>
-                  <dt>IO East</dt>
-                  <dd>{{ .factory.IOEast }}</dd>
-                </dl>
-              </div>
-              <div>
-                <dl>
-                  <dt>IO South</dt>
-                  <dd>{{ .factory.IOSouth }}</dd>
-                  <dt>IO West</dt>
-                  <dd>{{ .factory.IOWest }}</dd>
-                </dl>
-              </div>
-            </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content" style="display: flex; justify-content: space-between;">
+          <p class="title is-4">{{ .factory.Name }}</p>
+          <div>
+            <span class="material-symbols-outlined has-text-warning btn"
+              onclick="showModal('factory-edit');">edit_square</span>
+            <span class="material-symbols-outlined has-text-danger btn"
+              onclick="showModal('factory-delete');">delete</span>
+          </div>
         </div>
+      </div>
+      <div class="content" style="display: flex; justify-content: space-between;">
+        <div>
+          <dl>
+            <dt>Floors</dt>
+            <dd>{{ len .factory.Floors }}</dd>
+            <dt>Production lines</dt>
+            <dd>{{ .productionLineCount }}</dd>
+          </dl>
+        </div>
+        <div>
+          <dl>
+            <dt>IO North</dt>
+            <dd>{{ .factory.IONorth }}</dd>
+            <dt>IO East</dt>
+            <dd>{{ .factory.IOEast }}</dd>
+          </dl>
+        </div>
+        <div>
+          <dl>
+            <dt>IO South</dt>
+            <dd>{{ .factory.IOSouth }}</dd>
+            <dt>IO West</dt>
+            <dd>{{ .factory.IOWest }}</dd>
+          </dl>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="" style="display: flex; justify-content: space-between;">
-  <div>
-    <table class="table is-hoverable">
-      <thead>
-        <th>Level</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>IO</th>
-      </thead>
-      <tbody>
-        {{ range $floor := .factory.Floors }}
-        <tr>
-          <th class="has-text-centered">{{ if ge $floor.Level 0 }}{{ $floor.Level }}{{ else }}B{{ mul $floor.Level -1 }}{{ end }}</th>
-          <td><a href="{{ $floor.URLView }}">{{ $floor.Name }}</a></td>
-          <td><span class="tag {{ $floor.StatusUIClass }} is-full-width">{{ $floor.Status }}</td>
-          <td><span class="material-symbols-outlined btn">input_circle</span></td>
-        </tr>
-        {{ end }}
-        <tr>
-          <td colspan="6" style="text-align: center">
-            <button class="button is-link" onclick="showModal('floor-new');"><span class="material-symbols-outlined">add_circle</span> Add level</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="" style="display: flex; justify-content: center;">
   <div>
     <table id="io-table" class="table is-bordered is-striped is-narrow is-hoverable">
       <thead>
@@ -205,31 +399,36 @@ td:hover .modal-new-io-button {
       <div class="field">
         <label class="label">Name</label>
         <div class="control">
-          <input class="input" type="text" id="modal-factory-new-name" placeholder="Name of the new factory" value="{{ .factory.Name }}">
+          <input class="input" type="text" id="modal-factory-new-name" placeholder="Name of the new factory"
+            value="{{ .factory.Name }}">
         </div>
       </div>
       <div class="field">
         <label class="label">Inputs on North side</label>
         <div class="control">
-          <input class="input" type="number" id="modal-factory-new-io-north" placeholder="40" value="{{ .factory.IONorth }}">
+          <input class="input" type="number" id="modal-factory-new-io-north" placeholder="40"
+            value="{{ .factory.IONorth }}">
         </div>
       </div>
       <div class="field">
         <label class="label">Inputs on East side</label>
         <div class="control">
-          <input class="input" type="number" id="modal-factory-new-io-east" placeholder="40" value="{{ .factory.IOEast }}">
+          <input class="input" type="number" id="modal-factory-new-io-east" placeholder="40"
+            value="{{ .factory.IOEast }}">
         </div>
       </div>
       <div class="field">
         <label class="label">Inputs on South side</label>
         <div class="control">
-          <input class="input" type="number" id="modal-factory-new-io-south" placeholder="40" value="{{ .factory.IOSouth }}">
+          <input class="input" type="number" id="modal-factory-new-io-south" placeholder="40"
+            value="{{ .factory.IOSouth }}">
         </div>
       </div>
       <div class="field">
         <label class="label">Inputs on West side</label>
         <div class="control">
-          <input class="input" type="number" id="modal-factory-new-io-west" placeholder="40" value="{{ .factory.IOWest }}">
+          <input class="input" type="number" id="modal-factory-new-io-west" placeholder="40"
+            value="{{ .factory.IOWest }}">
         </div>
       </div>
     </section>
@@ -244,22 +443,22 @@ td:hover .modal-new-io-button {
 
 <!-- delete factory modal -->
 <div id="modal-factory-delete" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Delete a factory</p>
-        <button class="delete" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body">
-        <p>Are you sure to want to delete factory {{ .factory.Name }} ?</p>
-      </section>
-      <footer class="modal-card-foot">
-        <div class="buttons">
-          <button class="button is-danger" onclick="modalFactoryDelete_Send({{ .factory.ID }});">Delete factory</button>
-          <button class="button button-exit">Cancel</button>
-        </div>
-      </footer>
-    </div>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Delete a factory</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>Are you sure to want to delete factory {{ .factory.Name }} ?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-danger" onclick="modalFactoryDelete_Send({{ .factory.ID }});">Delete factory</button>
+        <button class="button button-exit">Cancel</button>
+      </div>
+    </footer>
+  </div>
 </div>
 
 <!-- new floor modal -->
@@ -318,7 +517,8 @@ td:hover .modal-new-io-button {
         <label class="label">Building</label>
         <div class="control">
           <div class="select" style="width: 100%;">
-            <select id="modal-io-new-building" style="width: 100%;" autocomplete="off" onchange="factoryView_newIOGetBuildingRecipes();">
+            <select id="modal-io-new-building" style="width: 100%;" autocomplete="off"
+              onchange="factoryView_newIOGetBuildingRecipes();">
               <option value="" selected>Choose a building</option>
               {{ range $building := .buildings }}
               <option value="{{ $building.ID }}">{{ $building.Name }}</option>

@@ -134,7 +134,19 @@ async function factoryView_LoadIOs(factory_id, floor_id) {
         }
       }
 
+      // store floor id for the new io modal
       document.getElementById('modal-io-new-floor-id').value = floor_id;
+
+      // update selected floor on sidebar
+      for (const li of document.getElementById('main-sidebar-floors').children) {
+        for (const a of li.children) {
+          if (a.dataset.floorId == floor_id) {
+            a.classList.add('is-active');
+          } else {
+            a.classList.remove('is-active');
+          }
+        }
+      }
     }
   } catch(e) {
     console.error(e);
@@ -217,5 +229,23 @@ async function factoryView_NewIOSend() {
     }
   } catch(e) {
     console.error(e);
+  }
+}
+
+
+function factoryView_ToggleSidebar() {
+  sidebar = document.getElementById('main-sidebar');
+  sidebar.classList.toggle('closed')
+
+  if (sidebar.classList.contains('closed')) {
+    withChildren.forEach(function(wChildrenEl) {
+      wChildrenEl.classList.remove('open')
+    })
+
+    mainContent.classList.add('sidebar--closed')
+    footerCopyright.classList.add('sidebar--closed')
+  } else {
+    mainContent.classList.remove('sidebar--closed')
+    footerCopyright.classList.remove('sidebar--closed')
   }
 }
