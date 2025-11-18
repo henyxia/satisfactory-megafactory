@@ -83,6 +83,17 @@ func (a *API) FloorIO(g *gin.Context) {
 	})
 }
 
+func (a *API) FloorProductionLine(g *gin.Context) {
+	var productionLines []models.ProductionLine
+
+	a.db.Preload("PortInput").Preload("PortOutput").Where("floor_id = ?", g.Param("floor_id")).
+		Find(&productionLines)
+
+	g.JSON(http.StatusOK, gin.H{
+		"production_lines": productionLines,
+	})
+}
+
 func (a *API) FloorIONew(g *gin.Context) {
 	input := struct {
 		IODirection        uint   `json:"direction"`

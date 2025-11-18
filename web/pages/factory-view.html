@@ -216,7 +216,7 @@
     <ul class="menu-list" id="main-sidebar-floors">
       {{ range $floor := .factory.Floors }}
       <li>
-        <a data-floor-id={{ $floor.ID }} href="/bulma-admin-dashboard-template/">
+        <a data-floor-id={{ $floor.ID }} onclick="factoryView_Load{{ if $floor.IsIO }}IOs{{ else }}ProductionLines{{ end }}({{ $.factory.ID }}, {{ $floor.ID }});">
           <span class="icon is-small"><b>{{ if ge $floor.Level 0 }}{{ $floor.Level }}{{ else }}B{{ mul $floor.Level -1 }}{{ end }}</b></span>
           <span class="menu-text tag {{ $floor.StatusUIClass }}">{{ $floor.Name }}</span>
         </a>
@@ -382,6 +382,8 @@
           {{ end }}
         </tbody>
       </table>
+    </div>
+    <div id="production-lines">
     </div>
   </div>
 </div>

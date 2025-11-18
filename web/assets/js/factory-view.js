@@ -104,6 +104,18 @@ function factoryView_ioCellContent(io) {
   return content;
 }
 
+function factoryView_updateSidebarFloor(floor_id) {
+  for (const li of document.getElementById('main-sidebar-floors').children) {
+    for (const a of li.children) {
+      if (a.dataset.floorId == floor_id) {
+        a.classList.add('is-active');
+      } else {
+        a.classList.remove('is-active');
+      }
+    }
+  }
+}
+
 async function factoryView_LoadIOs(factory_id, floor_id) {
   const response = await fetch('/api/floor/'+floor_id+'/io', {
     method: 'GET',
@@ -136,19 +148,15 @@ async function factoryView_LoadIOs(factory_id, floor_id) {
         }
       }
 
+      // render
+      document.getElementById('io-table').style.display = '';
+      document.getElementById('production-lines').style.display = 'none';
+
       // store floor id for the new io modal
       document.getElementById('modal-io-new-floor-id').value = floor_id;
 
       // update selected floor on sidebar
-      for (const li of document.getElementById('main-sidebar-floors').children) {
-        for (const a of li.children) {
-          if (a.dataset.floorId == floor_id) {
-            a.classList.add('is-active');
-          } else {
-            a.classList.remove('is-active');
-          }
-        }
-      }
+      factoryView_updateSidebarFloor(floor_id);
     }
   } catch(e) {
     console.error(e);
@@ -251,5 +259,82 @@ function factoryView_ToggleSidebar() {
     mainContent.classList.add('sidebar--closed')
   } else {
     mainContent.classList.remove('sidebar--closed')
+  }
+}
+
+function factoryView_productionLineContent(line) {
+  directionAsString = {
+    0: 'North',
+    1: 'East',
+    2: 'South',
+    3: 'West',
+  }
+  content = `
+    <div class="block">
+        <h3 class="subtitle" style="text-decoration: underline;">Production Line ${line.number}</h3>
+        <div>
+            <dl>
+                <dt>Source</dt>
+                <dd>Unknown</dd>
+                <dt>Input Port</dt>
+                <dd>
+                  ${ line.input ? `
+                    <div class="tags has-addons">
+                        <span class="tag is-success">Connected</span>
+                        <span class="tag">${ directionAsString[line.input.direction] } ${ line.input.position } ${ line.input.sub_position }</span>
+                    </div>`:
+                    `<span class="tag tag-large is-warning">Disconnected</span>`
+                  }
+                </dd>
+                <dt>Recipe</dt>
+                <dd>Iron Ingot</dd>
+                <dt>Output Port</dt>
+                <dd>
+                  ${ line.output ? `
+                    <div class="tags has-addons">
+                        <span class="tag is-success">Connected</span>
+                        <span class="tag">${ directionAsString[line.output.direction] } ${ line.output.position } ${ line.output.sub_position }</span>
+                    </div>`:
+                    `<span class="tag tag-large is-warning">Disconnected</span>`
+                  }
+                </dd>
+                <dt>Destination</dt>
+                <dd>Unknown</dd>
+            </dl>
+        </div>
+    </div>
+  `;
+
+  return content
+}
+
+async function factoryView_LoadProductionLines(factory_id, floor_id) {
+  const response = await fetch('/api/floor/'+floor_id+'/production-lines', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+
+  try {
+    const result = await response.json();
+    if (!response.ok) {
+        console.warn(result.error);
+    } else {
+      newContent = '';
+      for (const line of result.production_lines) {
+        newContent += factoryView_productionLineContent(line);
+      }
+
+      // render content
+      document.getElementById('io-table').style.display = 'none';
+      document.getElementById('production-lines').innerHTML = newContent;
+      document.getElementById('production-lines').style.display = '';
+
+      // update selected floor on sidebar
+      factoryView_updateSidebarFloor(floor_id);
+    }
+  } catch(e) {
+    console.error(e);
   }
 }

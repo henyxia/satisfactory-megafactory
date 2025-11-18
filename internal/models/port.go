@@ -12,10 +12,11 @@ const (
 )
 
 type Port struct {
-	ID          uint
-	FloorID     uint
-	Position    uint
-	SubPosition PortSubPosition
+	ID          uint            `json:"id"`
+	FloorID     uint            `json:"floor_id"`
+	Direction   uint            `json:"direction"`
+	Position    uint            `json:"position"`
+	SubPosition PortSubPosition `json:"sub_position"`
 }
 
 var subPositionAsString = map[PortSubPosition]string{
@@ -31,4 +32,15 @@ func (p *Port) SubPositionAsString() string {
 
 func (p *Port) String() string {
 	return fmt.Sprintf("Level %d Position %d %s", p.FloorID, p.Position, p.SubPositionAsString())
+}
+
+var portDirectionAsString = map[uint]string{
+	0: "North",
+	1: "East",
+	2: "South",
+	3: "West",
+}
+
+func (p *Port) DirectionAsString() string {
+	return ioDirectionAsString[p.Direction]
 }

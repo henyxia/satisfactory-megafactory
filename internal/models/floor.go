@@ -32,6 +32,10 @@ func (f *Floor) TypeAsString() string {
 	return floorTypeAsString[f.Type]
 }
 
+func (f *Floor) IsIO() bool {
+	return f.Type == 1
+}
+
 var floorStatusAsUIClass = map[FloorStatus]string{
 	FloorStatusAbsent:     "is-info",
 	FloorStatusInProgress: "is-link",

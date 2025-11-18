@@ -15,6 +15,7 @@ func (s *Server) setupRoutes() {
 	s.router.PUT("/api/factory/:factory_id/floor/:floor_id", api.FloorEdit)
 	s.router.DELETE("/api/factory/:factory_id/floor/:floor_id", api.FloorDelete)
 	s.router.GET("/api/floor/:floor_id/io", api.FloorIO)
+	s.router.GET("/api/floor/:floor_id/production-lines", api.FloorProductionLine)
 	s.router.POST("/api/floor/:floor_id/io", api.FloorIONew)
 	s.router.GET("/api/building/:building_id/recipe", api.BuildingRecipe)
 

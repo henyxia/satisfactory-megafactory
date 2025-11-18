@@ -1,11 +1,11 @@
 package models
 
 type ProductionLine struct {
-	ID           uint
-	Number       uint
-	FloorID      uint
-	PortInput    *Port
+	ID           uint  `json:"id"`
+	Number       uint  `json:"number"`
+	FloorID      uint  `json:"floor_id"`
+	PortInput    *Port `json:"input"`
 	PortInputID  uint
-	PortOutput   *Port
+	PortOutput   *Port `json:"output"`
 	PortOutputID uint
 }
